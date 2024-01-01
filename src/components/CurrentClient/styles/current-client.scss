@@ -1,0 +1,22 @@
+.current-client {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__col {
+    &:first-child {
+      margin-right: 15px;
+    }
+  }
+  &__id {
+    font-size: 5em;
+    font-weight: 700;
+  }
+  &__info {
+    display: block;
+    font-size: 0.9em;
+    line-height: 1.2;
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}
