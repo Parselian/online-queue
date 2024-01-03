@@ -1,12 +1,65 @@
 <template>
   <AuthLayout>
-    <LoginForm/>
+    <v-sheet
+      :elevation="5"
+      class="login-form"
+    >
+      <h2 class="login-form__title">Авторизация</h2>
+      <v-form @submit.prevent>
+        <v-text-field
+          v-model="authData.login"
+          density="compact"
+          label="Логин"
+        />
+        <v-text-field
+          v-model="authData.password"
+          density="compact"
+          label="Пароль"
+        />
+        <v-btn
+          @click="login"
+          type="submit"
+          block
+          class="mt-2"
+          :color="'black'"
+        >
+          Войти
+        </v-btn>
+      </v-form>
+    </v-sheet>
   </AuthLayout>
 </template>
 
 <script setup lang="ts">
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
-  import LoginForm from '@/components/LoginForm/LoginForm.vue'
+import router from '@/router';
+  import axios from 'axios';
+  import { unref } from 'vue';
+  import { ref } from 'vue'
+
+  const authData = ref<Record<any, unknown>>({
+    login: '',
+    password: ''
+  })
+
+  const login = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/login', {params: {login: unref(authData).login, password: unref(authData).password}})
+
+      localStorage.clear()
+      localStorage.login = response.data.login
+      localStorage.password = response.data.password
+      localStorage.user_name = response.data.user_name
+      localStorage.user_surname = response.data.user_surname
+      localStorage.user_group = response.data.user_group
+
+      router.push('/')
+
+    } catch (e) {
+      if (e.response.status === 453) alert('Неправильный логин или пароль!')
+      console.error(e)
+    }
+  }
 </script>
 
 <style scoped lang="scss">
