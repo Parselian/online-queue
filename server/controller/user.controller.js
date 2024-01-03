@@ -7,7 +7,8 @@ class UserController {
       user_name,
       user_surname,
       user_group,
-      password
+      password,
+      user_type
     } = req.body
 
     const existingPersons = await db.query('SELECT * FROM users WHERE login = $1', [login])
@@ -17,8 +18,8 @@ class UserController {
     console.log(existingPersons.rows);
 
     const newPerson = await db.query(
-      `INSERT INTO users (login, user_name, user_surname, user_group, password) values ($1, $2, $3, $4, $5) RETURNING *`,
-      [login, user_name, user_surname, user_group, password])
+      `INSERT INTO users (login, user_name, user_surname, user_group, password, user_type) values ($1, $2, $3, $4, $5, $6) RETURNING *`,
+      [login, user_name, user_surname, user_group, password, user_type])
     res.json(newPerson.rows[0])
   }
   async getSingleUser(req, res) {

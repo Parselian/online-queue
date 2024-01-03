@@ -32,9 +32,9 @@
 
 <script setup lang="ts">
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
-import router from '@/router';
-  import axios from 'axios';
-  import { unref } from 'vue';
+  import router from '@/router'
+  import axios from 'axios'
+  import { unref } from 'vue'
   import { ref } from 'vue'
 
   const authData = ref<Record<any, unknown>>({
@@ -52,10 +52,13 @@ import router from '@/router';
       localStorage.user_name = response.data.user_name
       localStorage.user_surname = response.data.user_surname
       localStorage.user_group = response.data.user_group
+      localStorage.user_type = response.data.user_type
+      console.log(localStorage.user_type == 2);
 
-      router.push('/')
+      if (localStorage.user_type == 2) return router.push('/admin/')
+      else return router.push('/')
 
-    } catch (e) {
+    } catch (e: any) {
       if (e.response.status === 453) alert('Неправильный логин или пароль!')
       console.error(e)
     }

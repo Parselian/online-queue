@@ -7,7 +7,7 @@
   <DefaultLayout>
     <CurrentClient
       :clientId="'L14'"
-      :clientName="'Ярослав Мишустин'"`
+      :clientName="'Ярослав Мишустин'"
       :clientGroup="'0312'"
       :clientQuestion="'Пересдача контрольной'"
     />

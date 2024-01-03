@@ -22,6 +22,7 @@
           label="Фамилия"
         />
         <v-text-field
+          v-if="!isAdminRegister"
           v-model="newUser.user_group"
           density="compact"
           label="Группа"
@@ -61,14 +62,18 @@
   import { ref, unref } from 'vue'
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
   import axios from 'axios'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
+
+  const route = useRoute()
+  const isAdminRegister = ref(route.name === 'admin-register')
 
   const newUser = ref<Record<any, unknown>>({
     login: '',
     user_name: '',
     user_surname: '',
     user_group: '',
-    password: ''
+    password: '',
+    user_type: unref(isAdminRegister) ? 2 : 1
   })
   const rules = ref({
     required: (value: string) => !!value || 'Required.',
@@ -78,6 +83,8 @@
 
   const createUser = async () => {
     try {
+      console.log(unref(newUser));
+
       const response = await axios.post('http://localhost:8080/api/user', unref(newUser))
       if (response.status >= 200 && response.status < 300) {
         alert('Вы успешно зарегестрировались!')

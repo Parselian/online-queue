@@ -13,7 +13,7 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      name: 'about',
+      name: 'home-admin',
       meta: {
         layout: 'Default',
       },
@@ -21,6 +21,14 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/admin/register',
+      name: 'admin-register',
+      meta: {
+        layout: 'Auth',
+      },
+      component: () => import('../views/RegistrationView.vue')
     },
     {
       path: '/login',
