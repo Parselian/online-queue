@@ -41,7 +41,7 @@ const router = createRouter({
       meta: {
         layout: 'Default',
       },
-      component: () => import('../views/QueueView.vue')
+      component: () => import('../views/QueueAdminView.vue')
     },
     {
       path: '/admin',

@@ -15,7 +15,7 @@ class SessionController {
   }
   async getSingleSession(req, res) {
     const {session_id} = await req.query
-    const session = await db.query('SELECT * FROM sessions WHERE id = $1', [+session_id])
+    const session = await db.query('SELECT * FROM sessions WHERE id = $1', [session_id])
 
     if (session.rows.length !== 1) return res.status(453).send('Пользователь не найден!')
 

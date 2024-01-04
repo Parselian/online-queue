@@ -2,7 +2,7 @@
   <div class="current-client">
     <div class="current-client__col">
       <span class="current-client__id">
-        {{ clientId }}
+        {{ ticketId }}
       </span>
     </div>
     <div class="current-client__col">
@@ -13,7 +13,7 @@
         <b>Группа:</b> {{ clientGroup }}
       </span>
       <span class="current-client__info">
-        <b>Вопрос:</b> {{ clientQuestion }}
+        <b>Вопрос:</b> {{ ticketRequest }}
       </span>
     </div>
   </div>
@@ -21,11 +21,11 @@
 
 <script setup lang="ts">
 
-  const props = defineProps<{
-    clientId: string,
+  defineProps<{
+    ticketId: string,
     clientName: string,
     clientGroup: string | number,
-    clientQuestion: string
+    ticketRequest: string
   }>()
 </script>
 

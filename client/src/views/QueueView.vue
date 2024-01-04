@@ -103,7 +103,10 @@
 
   const getTicket = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/get-single-ticket', {params: {student_id: localStorage.user_id}})
+      const response = await axios.get('http://localhost:8080/api/get-single-ticket', {params: {
+        student_id: localStorage.user_id,
+        session_id: localStorage.selected_session_id
+      }})
       hasStudentTicket.value = response.data ? true : false
       createdTicketData.value = response.data
 

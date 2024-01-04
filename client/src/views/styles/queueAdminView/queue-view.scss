@@ -1,0 +1,17 @@
+.queue {
+  &__title {
+    margin-top: 10px;
+    margin-bottom: 15vh;
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: 2rem;
+  }
+}
+
+.queue-controls {
+  padding-top: 100px;
+  text-align: center;
+  &__estimate {
+    margin-bottom: 10px;
+  }
+}
