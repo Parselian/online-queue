@@ -1,6 +1,6 @@
 const db = require("../db")
 
-class UserController {
+class SessionController {
   async createSession(req, res) {
     const {
       session_name,
@@ -14,8 +14,8 @@ class UserController {
     res.json(newSession.rows[0])
   }
   async getSingleSession(req, res) {
-    const {id} = await req.query
-    const session = await db.query('SELECT * FROM sessions WHERE id = $1', [id])
+    const {session_id} = await req.query
+    const session = await db.query('SELECT * FROM sessions WHERE id = $1', [+session_id])
 
     if (session.rows.length !== 1) return res.status(453).send('Пользователь не найден!')
 
@@ -44,4 +44,4 @@ class UserController {
   }
 }
 
-module.exports = new UserController()
+module.exports = new SessionController()
