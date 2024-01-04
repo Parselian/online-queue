@@ -12,15 +12,47 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
+      path: '/session',
+      name: 'session',
+      meta: {
+        layout: 'Default',
+      },
+      component: () => import('../views/SessionView.vue')
+    },
+    {
+      path: '/admin/session',
+      name: 'admin-session',
+      meta: {
+        layout: 'Default',
+      },
+      component: () => import('../views/SessionView.vue')
+    },
+    {
+      path: '/queue',
+      name: 'queue',
+      meta: {
+        layout: 'Default',
+      },
+      component: () => import('../views/QueueView.vue')
+    },
+    {
+      path: '/admin/queue',
+      name: 'admin-queue',
+      meta: {
+        layout: 'Default',
+      },
+      component: () => import('../views/QueueView.vue')
+    },
+    {
       path: '/admin',
-      name: 'home-admin',
+      name: 'admin-home',
       meta: {
         layout: 'Default',
       },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/admin/register',

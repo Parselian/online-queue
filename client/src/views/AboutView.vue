@@ -1,13 +1,23 @@
 <template>
-  <div class="about">
+  <DefaultLayout>
+    <CurrentClient
+      :clientId="'L14'"
+      :clientName="'Ярослав Мишустин'"
+      :clientGroup="'0312'"
+      :clientQuestion="'Пересдача контрольной'"
+    />
     <h1>У вас нет активной сессии!</h1>
-    <v-select>
+    <v-select
+      density="compact"
+      label="Желаемая сессия"
+    >
 
     </v-select>
-  </div>
+  </DefaultLayout>
 </template>
 
 <script setup lang="ts">
+  import DefaultLayout from '@/layouts/Default/DefaultLayout.vue'
 </script>
 
 <style>

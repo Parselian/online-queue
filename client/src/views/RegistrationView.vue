@@ -98,5 +98,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import '@/views/styles/registration-view.scss';
+  @import '@/views/styles/registrationView/registration-view.scss';
 </style>

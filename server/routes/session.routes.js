@@ -1,10 +1,10 @@
 const Router = require("express")
 const router = new Router()
-const UserController = require("../controller/user.controller")
+const SessionController = require("../controller/session.controller")
 
-router.post('/create-session', UserController.createUser)
-router.get('/sessions', UserController.getUsers)
-router.get('/get-session', UserController.getSingleUser)
-router.delete('/delete-session', UserController.deleteUser)
+router.post('/create-session', SessionController.createSession)
+router.get('/sessions', SessionController.getSessions)
+router.get('/get-session', SessionController.getSingleSession)
+router.delete('/delete-session', SessionController.deleteSession)
 
 module.exports = router

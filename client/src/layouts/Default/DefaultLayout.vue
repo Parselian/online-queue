@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <div>
-      <HeaderComponent :username="'User'"/>
+      <HeaderComponent :username="userName"/>
     </div>
     <div class="layout__body">
       <slot></slot>
@@ -11,6 +11,9 @@
 
 <script setup lang="ts">
   import HeaderComponent from '@/components/Header/HeaderComponent.vue';
+import { ref } from 'vue';
+
+  const userName = ref<string>(localStorage.user_name || '')
 </script>
 
 <style scoped lang="scss">

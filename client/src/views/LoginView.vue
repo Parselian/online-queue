@@ -47,16 +47,16 @@
       const response = await axios.get('http://localhost:8080/api/login', {params: {login: unref(authData).login, password: unref(authData).password}})
 
       localStorage.clear()
-      localStorage.login = response.data.login
-      localStorage.password = response.data.password
+      localStorage.user_id = response.data.id
+      localStorage.user_login = response.data.login
+      localStorage.user_password = response.data.password
       localStorage.user_name = response.data.user_name
       localStorage.user_surname = response.data.user_surname
       localStorage.user_group = response.data.user_group
       localStorage.user_type = response.data.user_type
-      console.log(localStorage.user_type == 2);
 
-      if (localStorage.user_type == 2) return router.push('/admin/')
-      else return router.push('/')
+      if (localStorage.user_type == 2) return router.push('/admin/session')
+      else return router.push('/session')
 
     } catch (e: any) {
       if (e.response.status === 453) alert('Неправильный логин или пароль!')
@@ -66,5 +66,5 @@
 </script>
 
 <style scoped lang="scss">
-  @import '@/views/styles/login-view.scss';
+  @import '@/views/styles/loginView/login-view.scss';
 </style>
