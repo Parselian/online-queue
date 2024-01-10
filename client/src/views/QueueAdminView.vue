@@ -10,7 +10,9 @@
       :clientGroup="currentClient.studentGroup"
       :ticketRequest="currentClient.ticketRequest"
     />
-    <div class="queue-controls">
+    <template
+      #controls
+    >
       <template
         v-if="isCurrentClientExist"
       >
@@ -20,6 +22,7 @@
         <v-btn
           @click="updateQueue()"
           color="black"
+          class="queue__button"
         >
           Следующий по очереди
         </v-btn>
@@ -28,10 +31,18 @@
         v-else
         @click="updateQueue()"
         color="black"
+        class="queue__button"
       >
         Обновить
       </v-btn>
-    </div>
+      <v-btn
+        class="queue__button"
+        @click="router.push('/admin/session')"
+        color="black"
+      >
+        к выбору сессии
+      </v-btn>
+    </template>
   </DefaultLayout>
 </template>
 
@@ -49,6 +60,7 @@
   const queueAmount = ref<number>()
 
   const getNextClient = async () => {
+    if (!localStorage.user_id) return
     try {
       const response = await axios.get('http://localhost:8080/api/get-next-order-ticket', {params: {
         student_id: localStorage.user_id,
@@ -95,6 +107,7 @@
   }
 
   const getQueueAmount = async () => {
+    if (!localStorage.user_id) return
     try {
       const response = await axios.get('http://localhost:8080/api/get-queue-tickets', {params: {session_id: localStorage.selected_session_id}})
       console.log(response);
@@ -107,6 +120,7 @@
   getQueueAmount()
 
   setInterval(async () => {
+    if (!localStorage.user_id) return
     await getNextClient()
     await getQueueAmount()
     console.log('queue updated')

@@ -6,7 +6,9 @@
 
 <script setup lang="ts">
   import DefaultLayout from '@/layouts/Default/DefaultLayout.vue'
+  import router from '@/router'
 
+  router.push('/admin/queue')
 </script>
 
 <style scoped lang="scss">

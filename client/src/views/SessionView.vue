@@ -28,31 +28,33 @@
       </span>
     </div>
 
-    <div
+    <template
+      #controls
       v-if="isAdminRoute"
-      class="session-create"
     >
-      <v-text-field
-        v-model="newSessionData.session_name"
-        density="compact"
-        variant="underlined"
-        label="Название сессии"
-      >
-      </v-text-field>
-      <v-btn
-        @click="createSession"
-        color="black"
-        class="session-create__button"
-      >
-        Создать сессию
-      </v-btn>
-      <span
-        v-if="isCreateSessionAlertVisible"
-        class="session-controls__alert"
-      >
-        Пожалуйста введите название новой сессии
-      </span>
-    </div>
+      <div class="session-create">
+        <v-text-field
+          v-model="newSessionData.session_name"
+          density="compact"
+          variant="underlined"
+          label="Название сессии"
+        >
+        </v-text-field>
+        <v-btn
+          @click="createSession"
+          color="black"
+          class="session-create__button"
+        >
+          Создать сессию
+        </v-btn>
+        <span
+          v-if="isCreateSessionAlertVisible"
+          class="session-controls__alert"
+        >
+          Пожалуйста введите название новой сессии
+        </span>
+      </div>
+    </template>
   </DefaultLayout>
 </template>
 

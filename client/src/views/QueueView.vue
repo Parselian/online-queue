@@ -10,7 +10,7 @@
       <div class="queue-ticket__label">Ваш талон:</div>
       <h1 class="queue-ticket__title">{{ createdTicketData.ticket_abbreviation }}</h1>
       <div class="queue-ticket__position">
-        <b>Поизиция в очереди:</b> {{ createdTicketData.ticket_position }}
+        <!-- <b>Поизиция в очереди:</b> {{ createdTicketData.ticket_position }} -->
       </div>
     </div>
     <!-- <CurrentClient
@@ -80,6 +80,7 @@
   const createdTicketData = ref<Record<any, unknown>>({})
 
   const getActiveSession = async () => {
+    if (!localStorage.user_id) return
     try {
       const response = await axios.get('http://localhost:8080/api/get-session', {params: {session_id: localStorage.selected_session_id}})
       createTicketFormData.value.session_name = response.data.session_name
@@ -95,19 +96,20 @@
 
     try {
       await axios.post('http://localhost:8080/api/create-ticket', unref(createTicketFormData))
-      getTicket()
+      await getTicket()
     } catch (e) {
       console.error(e)
     }
   }
 
   const getTicket = async () => {
+    if (!localStorage.user_id) return
     try {
       const response = await axios.get('http://localhost:8080/api/get-single-ticket', {params: {
         student_id: localStorage.user_id,
         session_id: localStorage.selected_session_id
       }})
-      hasStudentTicket.value = response.data ? true : false
+      hasStudentTicket.value = !response.data.is_ticket_closed ? true : false
       createdTicketData.value = response.data
 
       console.log(unref(createdTicketData))
@@ -116,6 +118,12 @@
     }
   }
   getTicket()
+
+  setInterval(async () => {
+    if (!localStorage.user_id) return
+    await getTicket()
+    console.log('queue updated')
+  }, 10000)
 </script>
 
 <style>

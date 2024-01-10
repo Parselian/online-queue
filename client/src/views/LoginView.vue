@@ -26,6 +26,17 @@
           Войти
         </v-btn>
       </v-form>
+      <div class="login-form-footer">
+        <span class="login-form-footer__label">
+          Нет аккаунта?
+        </span>
+        <RouterLink
+          :to="'/register'"
+          class="login-form-footer__link"
+        >
+          Зарегестрироваться
+        </RouterLink>
+      </div>
     </v-sheet>
   </AuthLayout>
 </template>
