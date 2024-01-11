@@ -13,27 +13,29 @@ class QueueController {
 
     const ticketAbbreviation = await `${user_surname.substring(0, 1).toUpperCase()}${!!lastTicketPosition.rows[0].max ? lastTicketPosition.rows[0].max : 1}`
 
-    const newSession = await db.query(
+    const newTicket = await db.query(
       'INSERT INTO queue_tickets (session_id, student_id, ticket_request, ticket_abbreviation) values ($1, $2, $3, $4) RETURNING *',
       [+session_id, +student_id, ticket_request, ticketAbbreviation])
 
-    res.json(newSession.rows[0])
+    res.json(newTicket.rows[0])
   }
   async getSingleTicket(req, res) {
     const {student_id, session_id} = await req.query
 
-    const ticket = await db.query('SELECT * FROM queue_tickets WHERE student_id = $1 AND session_id = $2', [student_id, session_id])
+    const ticket = await db.query('SELECT * FROM queue_tickets WHERE student_id = $1 AND session_id = $2 AND is_ticket_closed = false', [student_id, session_id])
 
     if (ticket.rows.length !== 1) return res.status(453).send('Тикет не найден!')
 
     res.json(ticket.rows[0])
   }
   async getNextOrderTicket(req, res) {
-    const {student_id, session_id} = await req.query
-
-    const studentInfo = await db.query('SELECT * FROM users WHERE id = $1', [student_id])
+    const {session_id} = await req.query
 
     const ticket = await db.query('SELECT * FROM queue_tickets WHERE ticket_position = (SELECT MIN(ticket_position) FROM queue_tickets WHERE session_id = $1 AND is_ticket_closed = false)', [session_id])
+
+    if (ticket.rows.length === 0) return res.status(452).send(`Session tickets not found.`)
+
+    const studentInfo = await db.query('SELECT * FROM users WHERE id = $1', [ticket.rows[0].student_id])
 
     res.json({...ticket.rows[0], user_name: studentInfo.rows[0].user_name, user_surname: studentInfo.rows[0].user_surname})
   }

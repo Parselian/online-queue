@@ -7,6 +7,11 @@
     text-align: center;
     font-size: 2rem;
   }
+  &__button {
+    &--sessions {
+      margin-top: 10px;
+    }
+  }
 }
 
 .queue-ticket {
@@ -29,15 +34,9 @@
     margin-bottom: 10px;
     font-weight: 500;
   }
-  &__form {
-    height: 100%;
-    border-radius: 15px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
-  }
 }
 
 .queue-registration-form {
-  padding: 20px 20px 20px;
   &__alert {
     display: block;
     text-align: center;

@@ -85,7 +85,7 @@
 
   const getSessionsList = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/sessions')
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/sessions`)
 
       sessionsList.value = await response.data
     } catch (e) {
@@ -106,7 +106,7 @@
     try {
       if (!unref(newSessionData).session_name) isCreateSessionAlertVisible.value = true
       else {
-        await axios.post('http://localhost:8080/api/create-session', unref(newSessionData))
+        await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/create-session`, unref(newSessionData))
         isCreateSessionAlertVisible.value = false
         newSessionData.value.session_name = ''
         getSessionsList()

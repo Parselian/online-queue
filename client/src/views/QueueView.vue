@@ -13,19 +13,9 @@
         <!-- <b>Поизиция в очереди:</b> {{ createdTicketData.ticket_position }} -->
       </div>
     </div>
-    <!-- <CurrentClient
-      v-else
-      :clientId="createdTicketData"
-      :clientName="'Ярослав Мишустин'"
-      :clientGroup="'0312'"
-      :clientQuestion="'Пересдача контрольной'"
-    /> -->
-    <div
-      v-if="!hasStudentTicket"
-      class="queue-registration"
-    >
-      <h4 class="queue-registration__title">Заполните форму:</h4>
-      <div class="queue-registration__form queue-registration-form">
+    <template #controls>
+      <template v-if="!hasStudentTicket">
+        <h4 class="queue-registration__title">Заполните форму:</h4>
         <v-text-field
           v-model="createTicketFormData.session_name"
           density="compact"
@@ -40,11 +30,11 @@
           label="Ваш запрос"
         />
         <v-btn
-          @click="createQueueTicket"
-          type="submit"
-          block
-          class="mt-2"
-          :color="'black'"
+        @click="createQueueTicket"
+        type="submit"
+        block
+        class="mt-2"
+        :color="'black'"
         >
           Создать тикет
         </v-btn>
@@ -54,8 +44,25 @@
         >
           Пожалуйста заполните все поля
         </span>
-      </div>
-    </div>
+      </template>
+      <template v-else>
+        <v-btn
+          block
+          @click="getTicket()"
+          color="black"
+        >
+          Обновить
+        </v-btn>
+      </template>
+      <v-btn
+        class="queue__button--sessions"
+        block
+        @click="router.push('/session')"
+        color="black"
+      >
+        к выбору сессии
+      </v-btn>
+    </template>
   </DefaultLayout>
 </template>
 
@@ -82,7 +89,7 @@
   const getActiveSession = async () => {
     if (!localStorage.user_id) return
     try {
-      const response = await axios.get('http://localhost:8080/api/get-session', {params: {session_id: localStorage.selected_session_id}})
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-session`, {params: {session_id: localStorage.selected_session_id}})
       createTicketFormData.value.session_name = response.data.session_name
     } catch (e) {
       console.error(e)
@@ -95,8 +102,9 @@
     console.log('here');
 
     try {
-      await axios.post('http://localhost:8080/api/create-ticket', unref(createTicketFormData))
+      await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/create-ticket`, unref(createTicketFormData))
       await getTicket()
+      isRegistrationAlertVisible.value = false
     } catch (e) {
       console.error(e)
     }
@@ -105,7 +113,7 @@
   const getTicket = async () => {
     if (!localStorage.user_id) return
     try {
-      const response = await axios.get('http://localhost:8080/api/get-single-ticket', {params: {
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-single-ticket`, {params: {
         student_id: localStorage.user_id,
         session_id: localStorage.selected_session_id
       }})
@@ -114,16 +122,17 @@
 
       console.log(unref(createdTicketData))
     } catch (e) {
+      hasStudentTicket.value = false
       console.error(e)
     }
   }
   getTicket()
 
-  setInterval(async () => {
-    if (!localStorage.user_id) return
-    await getTicket()
-    console.log('queue updated')
-  }, 10000)
+  // setInterval(async () => {
+  //   if (!localStorage.user_id) return
+  //   await getTicket()
+  //   console.log('queue updated')
+  // }, 10000)
 </script>
 
 <style>

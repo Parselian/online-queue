@@ -8,11 +8,13 @@
       <v-form @submit.prevent>
         <v-text-field
           v-model="authData.login"
+          :rules="[rules.required]"
           density="compact"
           label="Логин"
         />
         <v-text-field
           v-model="authData.password"
+          :rules="[rules.required]"
           density="compact"
           label="Пароль"
         />
@@ -53,9 +55,15 @@
     password: ''
   })
 
+  const rules = ref({
+    required: (value: string) => !!value || 'Required.',
+    min: (v: string) => v.length >= 8 || 'Min 8 characters'
+  })
+
   const login = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/login', {params: {login: unref(authData).login, password: unref(authData).password}})
+      if (Object.values(authData.value).includes('')) return false
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/login`, {params: {login: unref(authData).login, password: unref(authData).password}})
 
       localStorage.clear()
       localStorage.user_id = response.data.id

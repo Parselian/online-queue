@@ -9,21 +9,25 @@
         <v-text-field
           v-model="newUser.login"
           density="compact"
+          :rules="[rules.required]"
           label="Логин"
         />
         <v-text-field
           v-model="newUser.user_name"
           density="compact"
+          :rules="[rules.required]"
           label="Имя"
         />
         <v-text-field
           v-model="newUser.user_surname"
           density="compact"
+          :rules="[rules.required]"
           label="Фамилия"
         />
         <v-text-field
           v-if="!isAdminRegister"
           v-model="newUser.user_group"
+          :rules="[rules.required]"
           density="compact"
           label="Группа"
         />
@@ -40,12 +44,12 @@
           class="mt-2"
           @click="createUser"
         >
-          Зарегестрироваться
+          Зарегистрироваться
         </v-btn>
       </v-form>
       <div class="registration-form-footer">
         <span class="registration-form-footer__label">
-          Уже зарегестрированы?
+          Уже зарегистрированы?
         </span>
         <RouterLink
           :to="'/login'"
@@ -67,7 +71,7 @@
   const route = useRoute()
   const isAdminRegister = ref(route.name === 'admin-register')
 
-  const newUser = ref<Record<any, unknown>>({
+  const newUser = ref<Record<any, any>>({
     login: '',
     user_name: '',
     user_surname: '',
@@ -83,9 +87,9 @@
 
   const createUser = async () => {
     try {
-      console.log(unref(newUser));
+      if (Object.values(newUser.value).includes('') || newUser.value.password.length < 8) return false
 
-      const response = await axios.post('http://localhost:8080/api/user', unref(newUser))
+      const response = await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/user`, unref(newUser))
       if (response.status >= 200 && response.status < 300) {
         alert('Вы успешно зарегестрировались!')
         router.push('/login')

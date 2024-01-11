@@ -62,15 +62,12 @@
   const getNextClient = async () => {
     if (!localStorage.user_id) return
     try {
-      const response = await axios.get('http://localhost:8080/api/get-next-order-ticket', {params: {
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-next-order-ticket`, {params: {
         student_id: localStorage.user_id,
         session_id: localStorage.selected_session_id
       }})
 
       const data = response.data
-
-      /* If we didn`t receive ticket_id (data.id) we clear currentClient object and end this function */
-      if (!data.id) return currentClient.value = {}
 
       currentClient.value = {
         ticketId: data.id || null,
@@ -81,6 +78,8 @@
       }
       console.log(response);
     } catch (e) {
+      /* If we didn`t receive next client data (got error from the server) we clear currentClient object and end this function */
+      currentClient.value = {}
       console.error(e)
     }
   }
@@ -89,7 +88,7 @@
   const closeCurrentTicket = async () => {
     try {
       if (Object.keys(unref(currentClient)).length > 0) {
-        await axios.put('http://localhost:8080/api/close-ticket', {ticket_id: unref(currentClient).ticketId})
+        await axios.put(`${import.meta.env.VITE_HOSTNAME}/api/close-ticket`, {ticket_id: unref(currentClient).ticketId})
       }
     } catch (e) {
       console.error(e)
@@ -109,7 +108,7 @@
   const getQueueAmount = async () => {
     if (!localStorage.user_id) return
     try {
-      const response = await axios.get('http://localhost:8080/api/get-queue-tickets', {params: {session_id: localStorage.selected_session_id}})
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-queue-tickets`, {params: {session_id: localStorage.selected_session_id}})
       console.log(response);
 
       queueAmount.value = response.data.length
@@ -119,12 +118,12 @@
   }
   getQueueAmount()
 
-  setInterval(async () => {
-    if (!localStorage.user_id) return
-    await getNextClient()
-    await getQueueAmount()
-    console.log('queue updated')
-  }, 10000)
+  // setInterval(async () => {
+  //   if (!localStorage.user_id) return
+  //   await getNextClient()
+  //   await getQueueAmount()
+  //   console.log('queue updated')
+  // }, 10000)
 </script>
 
 <style>
