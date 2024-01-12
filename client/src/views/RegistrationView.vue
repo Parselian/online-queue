@@ -5,23 +5,29 @@
       class="registration-form"
     >
       <h2 class="registration-form__title">Регистрация</h2>
-      <v-form @submit.prevent>
+      <v-form
+        @submit.prevent="createUser"
+        v-model="isFormFilled"
+      >
         <v-text-field
           v-model="newUser.login"
           density="compact"
           :rules="[rules.required]"
+          clearable
           label="Логин"
         />
         <v-text-field
           v-model="newUser.user_name"
           density="compact"
           :rules="[rules.required]"
+          clearable
           label="Имя"
         />
         <v-text-field
           v-model="newUser.user_surname"
           density="compact"
           :rules="[rules.required]"
+          clearable
           label="Фамилия"
         />
         <v-text-field
@@ -29,20 +35,24 @@
           v-model="newUser.user_group"
           :rules="[rules.required]"
           density="compact"
+          clearable
           label="Группа"
         />
         <v-text-field
           v-model="newUser.password"
           density="compact"
+          type="password"
+          clearable
           :rules="[rules.min, rules.required]"
           label="Пароль"
         />
         <v-btn
+          :disabled="!isFormFilled"
           type="submit"
           block
           :color="'black'"
+          clearable
           class="mt-2"
-          @click="createUser"
         >
           Зарегистрироваться
         </v-btn>
@@ -70,7 +80,7 @@
 
   const route = useRoute()
   const isAdminRegister = ref(route.name === 'admin-register')
-
+  const isFormFilled = ref(false)
   const newUser = ref<Record<any, any>>({
     login: '',
     user_name: '',

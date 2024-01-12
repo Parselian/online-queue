@@ -28,11 +28,11 @@
       </span>
     </div>
 
-    <template
-      #controls
-      v-if="isAdminRoute"
-    >
-      <div class="session-create">
+    <template #controls>
+      <div
+        v-if="isAdminRoute"
+        class="session-create"
+      >
         <v-text-field
           v-model="newSessionData.session_name"
           density="compact"
@@ -54,6 +54,14 @@
           Пожалуйста введите название новой сессии
         </span>
       </div>
+      <v-btn
+          v-else
+          block
+          @click="getSessionsList()"
+          color="black"
+        >
+          Обновить
+        </v-btn>
     </template>
   </DefaultLayout>
 </template>

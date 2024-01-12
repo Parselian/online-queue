@@ -5,21 +5,24 @@
       class="login-form"
     >
       <h2 class="login-form__title">Авторизация</h2>
-      <v-form @submit.prevent>
+      <v-form v-model="isFormFilled" @submit.prevent="login">
         <v-text-field
           v-model="authData.login"
           :rules="[rules.required]"
           density="compact"
+          clearable
           label="Логин"
         />
         <v-text-field
           v-model="authData.password"
-          :rules="[rules.required]"
+          :rules="[rules.min, rules.required]"
           density="compact"
+          type="password"
+          clearable
           label="Пароль"
         />
         <v-btn
-          @click="login"
+          :disabled="!isFormFilled"
           type="submit"
           block
           class="mt-2"
@@ -50,7 +53,9 @@
   import { unref } from 'vue'
   import { ref } from 'vue'
 
-  const authData = ref<Record<any, unknown>>({
+  const isFormFilled = ref(false)
+
+  const authData = ref<Record<string, unknown>>({
     login: '',
     password: ''
   })
