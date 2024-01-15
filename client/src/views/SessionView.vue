@@ -26,6 +26,13 @@
       >
         Пожалуйста выберите сессию
       </span>
+      <v-btn
+        class="session-create__button"
+        @click="deleteSession()"
+        color="red"
+      >
+        Удалить сессию
+      </v-btn>
     </div>
 
     <template #controls>
@@ -55,13 +62,13 @@
         </span>
       </div>
       <v-btn
-          v-else
-          block
-          @click="getSessionsList()"
-          color="black"
-        >
-          Обновить
-        </v-btn>
+        v-else
+        block
+        @click="getSessionsList()"
+        color="black"
+      >
+        Обновить
+      </v-btn>
     </template>
   </DefaultLayout>
 </template>
@@ -119,6 +126,19 @@
         newSessionData.value.session_name = ''
         getSessionsList()
       }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const deleteSession = async () => {
+    if (!unref(selectedSessionId)) return
+    if (!confirm('Вы действительно хотите удалить выбранную сессию и все связанные с ней талоны?')) return
+    try {
+      const response = await axios.delete(`${import.meta.env.VITE_HOSTNAME}/api/delete-session`, {params: {session_id: unref(selectedSessionId)}})
+      await (getSessionsList())
+      selectedSessionId.value = null
+      console.log(response)
     } catch (e) {
       console.error(e)
     }

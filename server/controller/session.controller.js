@@ -26,13 +26,14 @@ class SessionController {
     res.json(sessions.rows)
   }
   async deleteSession(req, res) {
-    const id = await req.params.id
-    const queue_items = await db.query('DELETE * FROM queue_items WHERE session_id = $1', [id])
-    const session = await db.query('DELETE FROM sessions WHERE id = $1', [id])
+    const {session_id} = await req.query
+
+    const deleted_linked_tickets = await db.query('DELETE FROM queue_tickets WHERE session_id = $1', [session_id])
+    const session = await db.query('DELETE FROM sessions WHERE id = $1', [session_id])
 
     res.json({
-      deleted_queue_items: queue_items.rows,
-      deleted_session: session.rows[0]
+      deleted_queue_tickets: deleted_linked_tickets.rows,
+      deleted_session: session.rows
     })
   }
 }
