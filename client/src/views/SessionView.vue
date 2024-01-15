@@ -27,6 +27,7 @@
         Пожалуйста выберите сессию
       </span>
       <v-btn
+        v-if="isAdminRoute"
         class="session-create__button"
         @click="deleteSession()"
         color="red"
@@ -67,7 +68,7 @@
         @click="getSessionsList()"
         color="black"
       >
-        Обновить
+        Обновить список
       </v-btn>
     </template>
   </DefaultLayout>

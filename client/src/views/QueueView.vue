@@ -30,7 +30,7 @@
           label="Ваш запрос"
         />
         <v-btn
-        @click="createQueueTicket"
+        @click="createQueueTicket()"
         type="submit"
         block
         class="mt-2"
@@ -91,6 +91,7 @@
     try {
       const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-session`, {params: {session_id: localStorage.selected_session_id}})
       createTicketFormData.value.session_name = response.data.session_name
+      return true;
     } catch (e) {
       router.push('/session')
       return false;
@@ -99,8 +100,9 @@
   getActiveSession()
 
   const createQueueTicket = async () => {
+    const activeSession = await getActiveSession()
+    if (!activeSession) return
     if (!unref(createTicketFormData).ticket_request) return isRegistrationAlertVisible.value = true
-    console.log('here');
 
     try {
       await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/create-ticket`, unref(createTicketFormData))
@@ -112,7 +114,9 @@
   }
 
   const getTicket = async () => {
-    if (await !getActiveSession()) return
+    const activeSession = await getActiveSession()
+    if (!activeSession) return
+
     if (!localStorage.user_id) return
     try {
       const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-single-ticket`, {params: {
@@ -122,8 +126,6 @@
 
       hasStudentTicket.value = !response.data.is_ticket_closed ? true : false
       createdTicketData.value = response.data
-
-      console.log(unref(createdTicketData))
     } catch (e) {
       hasStudentTicket.value = false
       console.error(e)
