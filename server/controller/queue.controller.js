@@ -24,9 +24,11 @@ class QueueController {
 
     const ticket = await db.query('SELECT * FROM queue_tickets WHERE student_id = $1 AND session_id = $2 AND is_ticket_closed = false', [student_id, session_id])
 
+    const studentInfo = await db.query('SELECT * FROM users WHERE id = $1', [ticket.rows[0].student_id])
+
     if (ticket.rows.length !== 1) return res.status(453).send('Тикет не найден!')
 
-    res.json(ticket.rows[0])
+    res.json({...ticket.rows[0], user_name: studentInfo.rows[0].user_name, user_surname: studentInfo.rows[0].user_surname, user_group: studentInfo.rows[0].user_group})
   }
   async getNextOrderTicket(req, res) {
     const {session_id} = await req.query
@@ -37,7 +39,7 @@ class QueueController {
 
     const studentInfo = await db.query('SELECT * FROM users WHERE id = $1', [ticket.rows[0].student_id])
 
-    res.json({...ticket.rows[0], user_name: studentInfo.rows[0].user_name, user_surname: studentInfo.rows[0].user_surname})
+    res.json({...ticket.rows[0], user_name: studentInfo.rows[0].user_name, user_surname: studentInfo.rows[0].user_surname, user_group: studentInfo.rows[0].user_group})
   }
   async closeTicket(req, res) {
     const {ticket_id} = await req.body
