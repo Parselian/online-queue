@@ -15,8 +15,6 @@ class UserController {
 
     if (existingPersons.rows.length > 0) return res.status(452).send(`Error! user with login ${login} already exists.`)
 
-    console.log(existingPersons.rows);
-
     const newPerson = await db.query(
       `INSERT INTO users (login, user_name, user_surname, user_group, password, user_type) values ($1, $2, $3, $4, $5, $6) RETURNING *`,
       [login, user_name, user_surname, user_group, password, user_type])

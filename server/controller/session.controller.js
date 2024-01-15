@@ -35,13 +35,6 @@ class SessionController {
       deleted_session: session.rows[0]
     })
   }
-  async truncateTable(req, res) {
-    try {
-      await db.query('TRUNCATE users')
-    } catch (e) {
-      console.log(e)
-    }
-  }
 }
 
 module.exports = new SessionController()

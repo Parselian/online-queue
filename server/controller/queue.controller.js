@@ -52,6 +52,16 @@ class QueueController {
 
     res.json(queueTickets.rows)
   }
+  async clearQueue(req, res) {
+    try {
+      const {session_id} = await req.query
+      const deletedTickets = await db.query('DELETE FROM queue_tickets WHERE session_id = $1', [session_id])
+
+      res.json(deletedTickets)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
 module.exports = new QueueController()

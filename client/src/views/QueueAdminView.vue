@@ -42,6 +42,13 @@
       >
         к выбору сессии
       </v-btn>
+      <v-btn
+        class="queue__button"
+        @click="clearQueue()"
+        color="red"
+      >
+        Очистить очередь
+      </v-btn>
     </template>
   </DefaultLayout>
 </template>
@@ -117,6 +124,17 @@
     }
   }
   getQueueAmount()
+
+  const clearQueue = async () => {
+    if (!localStorage.selected_session_id) return
+    if (!confirm('Вы действительно хотите удалить все талоны текущей сессии?')) return
+    try {
+      const response = await axios.delete(`${import.meta.env.VITE_HOSTNAME}/api/clear-queue`, {params: {session_id: localStorage.selected_session_id}})
+      await console.log(response)
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   // setInterval(async () => {
   //   if (!localStorage.user_id) return
