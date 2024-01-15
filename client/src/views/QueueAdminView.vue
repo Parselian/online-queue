@@ -102,9 +102,9 @@
     }
   }
 
-  const updateQueue = async () => {
+  const updateQueue = async (shouldCloseCurrentTicket = true) => {
     try {
-      await closeCurrentTicket()
+      if (shouldCloseCurrentTicket) await closeCurrentTicket()
       await getNextClient()
       await getQueueAmount()
     } catch (e) {
@@ -131,6 +131,7 @@
     try {
       const response = await axios.delete(`${import.meta.env.VITE_HOSTNAME}/api/clear-queue`, {params: {session_id: localStorage.selected_session_id}})
       await console.log(response)
+      await updateQueue(false)
     } catch (e) {
       console.error(e)
     }
