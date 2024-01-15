@@ -92,6 +92,7 @@
       const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-session`, {params: {session_id: localStorage.selected_session_id}})
       createTicketFormData.value.session_name = response.data.session_name
     } catch (e) {
+      router.push('/session')
       console.error(e)
     }
   }
