@@ -93,7 +93,7 @@
       createTicketFormData.value.session_name = response.data.session_name
     } catch (e) {
       router.push('/session')
-      console.error(e)
+      return false;
     }
   }
   getActiveSession()
@@ -112,6 +112,7 @@
   }
 
   const getTicket = async () => {
+    if (await !getActiveSession()) return
     if (!localStorage.user_id) return
     try {
       const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-single-ticket`, {params: {
