@@ -117,6 +117,7 @@
         student_id: localStorage.user_id,
         session_id: localStorage.selected_session_id
       }})
+
       hasStudentTicket.value = !response.data.is_ticket_closed ? true : false
       createdTicketData.value = response.data
 
