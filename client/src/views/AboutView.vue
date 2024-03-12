@@ -10,9 +10,7 @@
     <v-select
       density="compact"
       label="Желаемая сессия"
-    >
-
-    </v-select>
+    />
   </DefaultLayout>
 </template>
 

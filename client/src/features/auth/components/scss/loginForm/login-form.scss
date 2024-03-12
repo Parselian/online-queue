@@ -1,0 +1,10 @@
+.login-form-footer {
+  padding-top: 20px;
+  text-align: center;
+  &__link {
+    display: block;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-decoration: underline;
+  }
+}
