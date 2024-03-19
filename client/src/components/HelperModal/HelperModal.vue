@@ -1,0 +1,32 @@
+<template>
+  <div class="helper-modal">
+    <h2 class="helper-modal__title">Нашли проблему?</h2>
+    <div class="helper-modal__subtitle">Или может есть предложения по улучшению? <br/> Напиши в телеграм👇</div>
+
+    <a
+      @click="store.toggleModal"
+      href="https://t.me/leti_talon"
+      target="_blank"
+      class="helper-modal__link"
+    >
+      Написать
+    </a>
+
+    <button
+      @click="store.toggleModal"
+      class="helper-modal__close"
+    >
+      Закрыть
+    </button>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { useModalsStore } from '@/stores/useModalsStore'
+
+  const store = useModalsStore();
+</script>
+
+<style lang="scss" scoped>
+  @import "@/components/HelperModal/scss/helper-modal";
+</style>

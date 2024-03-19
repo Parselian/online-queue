@@ -1,4 +1,4 @@
-import { useLoginStore } from "../stores/loginStore"
+import { useLoginStore } from "../../../stores/useLoginStore"
 import axios from 'axios'
 import router from '@/router'
 
@@ -10,6 +10,7 @@ export const login = async () => {
       alert('error')
       return false
     }
+
     const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/login`, {params: {login: store.login, password: store.password}})
 
     localStorage.clear()
@@ -21,8 +22,8 @@ export const login = async () => {
     localStorage.user_group = response.data.user_group
     localStorage.user_type = response.data.user_type
 
-    if (localStorage.user_type == 2) return router.push('/admin/session')
-    else return router.push('/session')
+    if (localStorage.user_type == 2) router.push('/admin/session')
+    else router.push('/session')
 
   } catch (e: any) {
     if (e.response.status === 453) alert('Неправильный логин или пароль!')

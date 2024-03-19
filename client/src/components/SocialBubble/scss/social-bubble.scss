@@ -1,0 +1,37 @@
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  5% {
+    transform: scale(.95);
+  }
+
+  10% {
+    transform: scale(1);
+  }
+
+  15% {
+    transform: scale(1.05);
+  }
+
+  20%, 100% {
+    transform: scale(1);
+  }
+}
+
+.social-bubble {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  background-color: skyblue;
+  cursor: pointer;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+  animation-name: pulse;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}

@@ -101,7 +101,12 @@
 
   const getSessionsList = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/sessions`)
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/sessions`, {
+        params: {
+          user_type: localStorage.user_type,
+          user_id: localStorage.user_id,
+        }
+      })
 
       sessionsList.value = await response.data
     } catch (e) {

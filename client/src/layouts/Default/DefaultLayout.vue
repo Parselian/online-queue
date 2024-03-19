@@ -13,12 +13,25 @@
         <slot name="controls"></slot>
       </div>
     </div>
+    <div
+      v-if="store.isModalOpen"
+      class="layout__modals"
+    >
+      <HelperModal />
+    </div>
+    <SocialBubble/>
   </div>
 </template>
 
 <script setup lang="ts">
-  import HeaderComponent from '@/components/Header/HeaderComponent.vue';
+  import HelperModal from '@/components/HelperModal/HelperModal.vue'
+  import HeaderComponent from '@/components/Header/HeaderComponent.vue'
   import { ref } from 'vue';
+  import SocialBubble from '@/components/SocialBubble/SocialBubble.vue'
+
+  import { useModalsStore } from '@/stores/useModalsStore'
+
+  const store = useModalsStore()
 
   const userName = ref<string>(localStorage.user_name || '')
 </script>

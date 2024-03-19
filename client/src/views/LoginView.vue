@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
-  import LoginForm from '@/features/auth/components/LoginForm.vue'
+  import LoginForm from '@/components/LoginForm/LoginForm.vue'
 </script>
 
 <style scoped lang="scss">

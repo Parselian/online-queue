@@ -22,7 +22,15 @@ class SessionController {
     res.json(session.rows[0])
   }
   async getSessions(req, res) {
-    const sessions = await db.query('SELECT * from sessions')
+    const {user_type, user_id} = await req.query
+    let sessions = null
+
+    if (+user_type === 2) {
+      sessions = await db.query('SELECT * from sessions WHERE creator_id = $1', [user_id])
+    } else {
+      sessions = await db.query('SELECT * from sessions')
+    }
+
     res.json(sessions.rows)
   }
   async deleteSession(req, res) {

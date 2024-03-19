@@ -40,12 +40,12 @@
 </template>
 
 <script setup lang="ts">
-  import { useLoginStore } from '@/features/auth/stores/loginStore'
-  import {login} from '@/features/auth/api/login'
+  import { useLoginStore } from '@/stores/useLoginStore'
+  import {login} from '@/components/LoginForm/helpers/login'
 
   const store = useLoginStore()
 </script>
 
 <style scoped lang="scss">
-  @import '@/features/auth/components/scss/loginForm/login-form.scss';
+  @import '@/components/LoginForm/scss/loginForm/login-form.scss';
 </style>

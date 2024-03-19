@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
-  import RegistrationForm from '@/features/auth/components/RegistrationForm.vue'
+  import RegistrationForm from '@/components/RegistrationForm/RegistrationForm.vue'
 </script>
 
 <style scoped lang="scss">

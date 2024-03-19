@@ -1,23 +1,27 @@
 <template>
   <DefaultLayout>
     <h1
-      v-if="!isCurrentClientExist"
-      class="queue__title">Очередь пуста</h1>
+      v-if="!store.isCurrentClientExist"
+      class="queue__title">
+      Очередь пуста
+    </h1>
+
     <CurrentClient
       v-else
-      :ticketId="currentClient.ticketAbbreviation"
-      :clientName="currentClient.studentName"
-      :clientGroup="currentClient.studentGroup"
-      :ticketRequest="currentClient.ticketRequest"
+      :ticketId="store.currentClient.ticketAbbreviation"
+      :clientName="store.currentClient.studentName"
+      :clientGroup="store.currentClient.studentGroup"
+      :ticketRequest="store.currentClient.ticketRequest"
     />
+
     <template
       #controls
     >
       <template
-        v-if="isCurrentClientExist"
+        v-if="store.isCurrentClientExist"
       >
         <div class="queue-controls__estimate">
-          <b>Осталось студентов:</b> {{ queueAmount }}
+          <b>Осталось студентов:</b> {{ store.queueAmount }}
         </div>
         <v-btn
           @click="updateQueue()"
@@ -57,85 +61,22 @@
   import CurrentClient from '@/components/CurrentClient/CurrentClient.vue'
   import DefaultLayout from '@/layouts/Default/DefaultLayout.vue'
   import router from '@/router'
-  import axios from 'axios'
-  import { computed, ref, unref } from 'vue'
+
+  import { useQueueAdminStore } from "@/stores/useQueueAdminStore"
+
+  import {
+    getNextClient,
+    updateQueue,
+    getQueueAmount,
+    clearQueue
+  }  from './helpers/queueAdminView/queueAdminView'
 
   if (!localStorage.selected_session_id) router.push('/admin/session')
 
-  const currentClient = ref<Record<any, any>>({})
-  const isCurrentClientExist = computed(() => Object.keys(unref(currentClient)).length === 0 ? false : true)
-  const queueAmount = ref<number>()
+  const store = useQueueAdminStore()
 
-  const getNextClient = async () => {
-    if (!localStorage.user_id) return
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-next-order-ticket`, {params: {
-        student_id: localStorage.user_id,
-        session_id: localStorage.selected_session_id
-      }})
-
-      const data = response.data
-
-      currentClient.value = {
-        ticketId: data.id || null,
-        ticketAbbreviation: data.ticket_abbreviation || '',
-        ticketRequest: data.ticket_request || '-',
-        studentGroup: data.user_group || '-',
-        studentName: `${data.user_name} ${data.user_surname}` || '-'
-      }
-      console.log(response);
-    } catch (e) {
-      /* If we didn`t receive next client data (got error from the server) we clear currentClient object and end this function */
-      currentClient.value = {}
-      console.error(e)
-    }
-  }
   getNextClient()
-
-  const closeCurrentTicket = async () => {
-    try {
-      if (Object.keys(unref(currentClient)).length > 0) {
-        await axios.put(`${import.meta.env.VITE_HOSTNAME}/api/close-ticket`, {ticket_id: unref(currentClient).ticketId})
-      }
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  const updateQueue = async (shouldCloseCurrentTicket = true) => {
-    try {
-      if (shouldCloseCurrentTicket) await closeCurrentTicket()
-      await getNextClient()
-      await getQueueAmount()
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  const getQueueAmount = async () => {
-    if (!localStorage.user_id) return
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-queue-tickets`, {params: {session_id: localStorage.selected_session_id}})
-      console.log(response);
-
-      queueAmount.value = response.data.length
-    } catch (e) {
-      console.error(e)
-    }
-  }
   getQueueAmount()
-
-  const clearQueue = async () => {
-    if (!localStorage.selected_session_id) return
-    if (!confirm('Вы действительно хотите удалить все талоны текущей сессии?')) return
-    try {
-      const response = await axios.delete(`${import.meta.env.VITE_HOSTNAME}/api/clear-queue`, {params: {session_id: localStorage.selected_session_id}})
-      await console.log(response)
-      await updateQueue(false)
-    } catch (e) {
-      console.error(e)
-    }
-  }
 
   // setInterval(async () => {
   //   if (!localStorage.user_id) return

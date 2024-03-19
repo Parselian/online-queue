@@ -14,4 +14,18 @@
     padding: 0 10px;
     overflow-y: auto;
   }
+  &__modals {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    position: fixed;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+  }
 }
