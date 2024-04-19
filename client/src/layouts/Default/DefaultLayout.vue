@@ -19,7 +19,7 @@
     >
       <HelperModal />
     </div>
-    <SocialBubble/>
+    <SupportBubble/>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
   import HelperModal from '@/components/HelperModal/HelperModal.vue'
   import HeaderComponent from '@/components/Header/HeaderComponent.vue'
   import { ref } from 'vue';
-  import SocialBubble from '@/components/SocialBubble/SocialBubble.vue'
+  import SupportBubble from '@/components/SupportBubble/SupportBubble.vue'
 
   import { useModalsStore } from '@/stores/useModalsStore'
 

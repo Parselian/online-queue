@@ -1,23 +1,17 @@
 <template>
   <div class="layout">
     <slot></slot>
-    <SocialBubble/>
-    <div
-      v-if="store.isModalOpen"
-      class="layout__modals"
-    >
+    <SupportBubble/>
+
+    <slot name="modals">
       <HelperModal />
-    </div>
+    </slot>
   </div>
 </template>
 
 <script setup lang="ts">
   import HelperModal from '@/components/HelperModal/HelperModal.vue'
-  import SocialBubble from '@/components/SocialBubble/SocialBubble.vue'
-
-  import { useModalsStore } from '@/stores/useModalsStore'
-
-  const store = useModalsStore()
+  import SupportBubble from '@/components/SupportBubble/SupportBubble.vue'
 </script>
 
 <style scoped lang="scss">

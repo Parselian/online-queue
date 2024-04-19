@@ -2,11 +2,11 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useModalsStore = defineStore('modals', () => {
-  const isModalOpen = ref(false)
+  const isSupportModalOpen = ref(false)
 
-  function toggleModal() {
-    isModalOpen.value = !isModalOpen.value
+  function toggleSupportModal() {
+    isSupportModalOpen.value = !isSupportModalOpen.value
   }
 
-  return { isModalOpen, toggleModal }
+  return { isSupportModalOpen, toggleSupportModal }
 })

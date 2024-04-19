@@ -1,9 +1,10 @@
 .helper-modal {
-  text-align: center;
-  padding: 20px 15px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+  &__card {
+    text-align: center;
+    padding: 20px 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+  }
 
   &__title {
     margin-bottom: 5px;
@@ -19,7 +20,7 @@
     margin-bottom: 20px;
     font-size: 18px;
     display: block;
-    background-color: skyblue;
+    background-color: #229ED9;
     padding: 10px 15px;
     border-radius: 5px;
     color: #fff;
