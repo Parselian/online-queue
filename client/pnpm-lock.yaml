@@ -14,6 +14,9 @@ importers:
       pinia:
         specifier: ^2.1.7
         version: 2.1.7(typescript@5.3.3)(vue@3.4.3(typescript@5.3.3))
+      vee-validate:
+        specifier: ^4.12.6
+        version: 4.12.6(vue@3.4.3(typescript@5.3.3))
       vue:
         specifier: ^3.3.11
         version: 3.4.3(typescript@5.3.3)
@@ -1466,6 +1469,11 @@ packages:
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
+
+  vee-validate@4.12.6:
+    resolution: {integrity: sha512-EKM3YHy8t1miPh30d5X6xOrfG/Ctq0nbN4eMpCK7ezvI6T98/S66vswP+ihL4QqAK/k5KqreWOxof09+JG7N/A==}
+    peerDependencies:
+      vue: ^3.3.11
 
   vite-plugin-qrcode@0.2.3:
     resolution: {integrity: sha512-TFzhf20v29hnh2XEoZ2kxg8Ff/ui36pR7PGDaHaKEmsQaRagv31XacHxbw5O07HcC1Mkr4tKcYb+PFASSceHmw==}
@@ -2955,6 +2963,12 @@ snapshots:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+
+  vee-validate@4.12.6(vue@3.4.3(typescript@5.3.3)):
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      type-fest: 4.9.0
+      vue: 3.4.3(typescript@5.3.3)
 
   vite-plugin-qrcode@0.2.3(vite@5.0.10(@types/node@18.19.4)(sass@1.69.6)):
     dependencies:

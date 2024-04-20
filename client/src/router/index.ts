@@ -54,21 +54,21 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/HomeView.vue')
     },
-    {
-      path: '/admin/register',
-      name: 'admin-register',
-      meta: {
-        layout: 'Auth',
-      },
-      component: () => import('../views/RegistrationView.vue')
-    },
+    // {
+    //   path: '/admin/register',
+    //   name: 'admin-register',
+    //   meta: {
+    //     layout: 'Auth',
+    //   },
+    //   component: () => import('../views/AuthView.vue')
+    // },
     {
       path: '/login',
       name: 'login',
       meta: {
         layout: 'Auth',
       },
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/AuthView.vue')
     },
     {
       path: '/register',
@@ -76,7 +76,7 @@ const router = createRouter({
       meta: {
         layout: 'Auth',
       },
-      component: () => import('../views/RegistrationView.vue')
+      component: () => import('../views/AuthView.vue')
     }
   ]
 })

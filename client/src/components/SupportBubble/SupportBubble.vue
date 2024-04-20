@@ -2,6 +2,7 @@
   <v-btn
     @click="toggleSupportModal"
     round
+    theme="dark"
     class="support-bubble"
     icon="pest_control"
     size="x-large"
