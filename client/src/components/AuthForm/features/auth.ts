@@ -1,4 +1,4 @@
-import { useAuthStore } from '../../../stores/useAuthStore'
+import { useAuthStore } from '@/stores/useAuthStore'
 import axios from 'axios'
 import router from '@/router'
 
@@ -6,7 +6,7 @@ export const login = async () => {
   const store = useAuthStore()
 
   try {
-    const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/login`, {params: {login: store.userData.login, password: store.userData.password}})
+    const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/login`, {params: {login: store.userFormData.login, password: store.userFormData.password}})
 
     localStorage.clear()
     localStorage.user_id = response.data.id
@@ -30,7 +30,7 @@ export const register = async () => {
   const store = useAuthStore()
 
   try {
-    const response = await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/user`, store.userData)
+    const response = await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/user`, store.userFormData)
 
     if (response.status >= 200 && response.status < 300) {
       alert('Вы успешно зарегестрировались!')

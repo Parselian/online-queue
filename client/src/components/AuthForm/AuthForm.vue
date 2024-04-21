@@ -5,27 +5,27 @@
   >
     <template v-if="store.isActiveRegisterRoute">
       <v-text-field
-        v-model="store.userData.user_name"
+        v-model="store.userFormData.user_name"
         density="compact"
         :rules="[rules.required]"
         label="Имя"
       />
       <v-text-field
-        v-model="store.userData.user_surname"
+        v-model="store.userFormData.user_surname"
         density="compact"
         :rules="[rules.required]"
         label="Фамилия"
       />
       <v-text-field
-        v-model="store.userData.user_group"
+        v-model="store.userFormData.user_group"
         :rules="[rules.required]"
         density="compact"
         label="Группа"
-      />      
+      />
     </template>
 
     <v-text-field
-      v-model="store.userData.login"
+      v-model="store.userFormData.login"
       :rules="[rules.required]"
       density="compact"
       type="text"
@@ -33,7 +33,7 @@
       label="Логин"
     />
     <v-text-field
-      v-model="store.userData.password"
+      v-model="store.userFormData.password"
       :rules="[rules.min, rules.required]"
       density="compact"
       type="password"
@@ -82,7 +82,7 @@
     required: (value: string | number) => !!value || 'Заполните поле',
     min: (v: string) => v.length >= 8 || 'Мин. 8 символов'
   })
-  
+
   const store = useAuthStore()
   const form = ref()
 

@@ -7,6 +7,8 @@ class SessionController {
       creator_id,
     } = req.body
 
+    console.log(req.body)
+
     const newSession = await db.query(
       `INSERT INTO sessions (session_name, creator_id) values ($1, $2) RETURNING *`,
       [session_name, creator_id])
