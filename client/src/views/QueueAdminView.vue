@@ -1,31 +1,28 @@
 <template>
   <DefaultLayout>
     <h1
-      v-if="!store.isCurrentClientExist"
-      class="queue__title">
+      v-if="!store.isCurrentClientExists"
+      class="queue__title"
+    >
       Очередь пуста
     </h1>
 
     <CurrentClient
       v-else
-      :ticketId="store.currentClient.ticketAbbreviation"
-      :clientName="store.currentClient.studentName"
-      :clientGroup="store.currentClient.studentGroup"
-      :ticketRequest="store.currentClient.ticketRequest"
+      :ticketId="store.currentClientInfo.ticketAbbreviation"
+      :clientName="store.currentClientInfo.studentName"
+      :clientGroup="store.currentClientInfo.studentGroup"
+      :ticketRequest="store.currentClientInfo.ticketRequest"
     />
 
-    <template
-      #controls
-    >
-      <template
-        v-if="store.isCurrentClientExist"
-      >
+    <template #controls>
+      <template v-if="store.isCurrentClientExists">
         <div class="queue-controls__estimate">
           <b>Осталось студентов:</b> {{ store.queueAmount }}
         </div>
         <v-btn
-          @click="updateQueue()"
-          color="black"
+          @click="updateQueue"
+          color="light-blue"
           class="queue__button"
         >
           Следующий по очереди
@@ -33,23 +30,24 @@
       </template>
       <v-btn
         v-else
-        @click="updateQueue()"
-        color="black"
+        @click="updateQueue(false)"
+        color="light-blue"
         class="queue__button"
       >
         Обновить
       </v-btn>
       <v-btn
-        class="queue__button"
         @click="router.push('/admin/session')"
-        color="black"
+        variant="outlined"
+        color="light-blue"
+        class="queue__button"
       >
         к выбору сессии
       </v-btn>
       <v-btn
+        @click="clearQueue"
+        color="pink"
         class="queue__button"
-        @click="clearQueue()"
-        color="red"
       >
         Очистить очередь
       </v-btn>
@@ -62,30 +60,32 @@
   import DefaultLayout from '@/layouts/Default/DefaultLayout.vue'
   import router from '@/router'
 
-  import { useQueueAdminStore } from "@/stores/useQueueAdminStore"
+  import { useQueueStore } from "@/stores/useQueueStore"
 
-  import {
-    getNextClient,
-    updateQueue,
-    getQueueAmount,
-    clearQueue
-  }  from './helpers/queueAdminView/queueAdminView'
+  import { useQueueAdminView } from '@/views/features/useQueueAdminView/useQueueAdminView'
 
   if (!localStorage.selected_session_id) router.push('/admin/session')
 
-  const store = useQueueAdminStore()
+  const store = useQueueStore()
+  const {
+    clearQueue,
+    updateQueue,
+    getNextClient,
+    getQueueAmount
+  } = useQueueAdminView()
 
   getNextClient()
   getQueueAmount()
 
-  // setInterval(async () => {
-  //   if (!localStorage.user_id) return
-  //   await getNextClient()
-  //   await getQueueAmount()
-  //   console.log('queue updated')
-  // }, 10000)
+  setInterval(async () => {
+    // if (!localStorage.user_id) return
+    // await getNextClient()
+    // await getQueueAmount()
+    // console.log('queue updated')
+  }, 1000)
 </script>
 
 <style>
   @import "@/views/styles/queueAdminView/queue-view.scss";
 </style>
+./features/useQueueAdminView/queueAdminView

@@ -13,6 +13,7 @@
         <!-- <b>Поизиция в очереди:</b> {{ createdTicketData.ticket_position }} -->
       </div>
     </div>
+
     <template #controls>
       <CreateTicketForm v-if="!store.isOpenedTicketExists"/>
 

@@ -14,7 +14,7 @@
     />
     <v-text-field
       v-model="queueStore.ticketRequest"
-      :rules="[v => !!v || 'Укажите ваш запрос']"
+      :rules="[v => !!v.trim() || 'Укажите ваш запрос']"
       density="compact"
       variant="underlined"
       label="Ваш запрос"

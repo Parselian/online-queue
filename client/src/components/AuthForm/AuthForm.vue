@@ -79,7 +79,7 @@
   import { login, register } from './features/auth';
 
   const rules = ref({
-    required: (value: string | number) => !!value || 'Заполните поле',
+    required: (value: string) => !!value.trim() || 'Заполните поле',
     min: (v: string) => v.length >= 8 || 'Мин. 8 символов'
   })
 
