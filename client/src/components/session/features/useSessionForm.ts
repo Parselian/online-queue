@@ -38,6 +38,17 @@ export const useSessionForm = () => {
     }
   }
 
+  const getActiveSessionData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-session`, {params: {session_id: localStorage.selected_session_id}})
+
+      return response.data
+    } catch (e) {
+      console.error(e)
+      return router.push('/session')
+    }
+  }
+
   const selectSession = () => {
     localStorage.selected_session_id = sessionsStore.selectedSessionId
 
@@ -69,6 +80,7 @@ export const useSessionForm = () => {
   return {
     createSession,
     deleteSession,
+    getActiveSessionData,
     getSessionsList,
     getSubjectsList,
     selectSession,
