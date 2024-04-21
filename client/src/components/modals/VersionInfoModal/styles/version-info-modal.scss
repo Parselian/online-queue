@@ -1,0 +1,42 @@
+.version-info-modal {
+  &__card {
+    margin: auto;
+    padding: 10px 20px;
+    width: calc(100% - 20px);
+    height: 80vh;
+  }
+  &__title {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  &__text {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  &__scroll {
+    margin-bottom: 20px;
+    height: calc(100% - 140px);
+    overflow-y: scroll;
+  }
+  &__separator {
+    margin-bottom: 15px;
+  }
+  &__list {
+    margin-bottom: 20px;
+    list-style: disc;
+  }
+  &__close {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.version-info-modal-list {
+  padding-left: 20px;
+  &__item {
+    margin-bottom: 5px;
+  }
+}

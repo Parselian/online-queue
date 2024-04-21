@@ -4,13 +4,13 @@
     <SupportBubble/>
 
     <slot name="modals">
-      <HelperModal />
+      <SupportModal />
     </slot>
   </div>
 </template>
 
 <script setup lang="ts">
-  import HelperModal from '@/components/HelperModal/HelperModal.vue'
+  import SupportModal from '@/components/modals/SupportModal/SupportModal.vue'
   import SupportBubble from '@/components/SupportBubble/SupportBubble.vue'
 </script>
 

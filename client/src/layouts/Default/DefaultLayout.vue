@@ -13,13 +13,15 @@
         <slot name="controls"></slot>
       </div>
     </div>
-    <HelperModal />
+    <VersionInfoModal />
+    <SupportModal />
     <SupportBubble/>
   </div>
 </template>
 
 <script setup lang="ts">
-  import HelperModal from '@/components/HelperModal/HelperModal.vue'
+  import SupportModal from '@/components/modals/SupportModal/SupportModal.vue'
+  import VersionInfoModal from '@/components/modals/VersionInfoModal/VersionInfoModal.vue'
   import HeaderComponent from '@/components/Header/HeaderComponent.vue'
   import { ref } from 'vue';
   import SupportBubble from '@/components/SupportBubble/SupportBubble.vue'
