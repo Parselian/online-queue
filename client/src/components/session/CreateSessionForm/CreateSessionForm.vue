@@ -15,6 +15,7 @@
     </v-text-field>
     <v-btn
       type="submit"
+      block
       color="light-blue"
       class="session-create__button"
     >
@@ -34,7 +35,6 @@
 
   const submitForm = async () => {
     const {valid} = await createSessionForm.value.validate()
-    console.log(valid);
 
     if (valid) {
       createSession()

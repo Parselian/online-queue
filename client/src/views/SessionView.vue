@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <h1 class="session__title">{{ pageTitle }}</h1>
+    <h1 class="session__title">Выберите сессию</h1>
     <div class="session-controls">
       <SelectSessionForm />
     </div>
@@ -13,14 +13,11 @@
 
 <script setup lang="ts">
   import DefaultLayout from '@/layouts/Default/DefaultLayout.vue'
-  import { computed } from 'vue'
   import { useAuthStore } from '@/stores/useAuthStore'
   import SelectSessionForm from '@/components/session/SelectSessionForm/SelectSessionForm.vue'
   import CreateSessionForm from '@/components/session/CreateSessionForm/CreateSessionForm.vue'
 
   const authStore = useAuthStore()
-
-  const pageTitle = computed(() => authStore.isUserAdmin ? 'У вас нет активной сессии' : 'Вам необходимо подключиться к сессии')
 </script>
 
 <style scoped lang="scss">

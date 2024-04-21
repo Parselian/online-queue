@@ -4,17 +4,29 @@
     class="select-session-form"
   >
     <v-select
+      v-model="sessionsStore.selectedSubjectId"
+      :items="sessionsStore.subjectsList"
+      @update:menu="getSessionsList"
+      :rules="[v => !!v || 'Выберите предмет!']"
+      item-title="subject_name"
+      item-value="ID"
+      density="compact"
+      variant="underlined"
+      label="Желаемый предмет"
+      class="select-session-form__select"
+    />
+    <v-select
       v-model="sessionsStore.selectedSessionId"
       :items="sessionsStore.sessionsList"
       :rules="[v => !!v || 'Выберите сессию!']"
+      :disabled="isSessionSelectDisabled"
       item-title="session_name"
       item-value="id"
-      class="session-controls__select"
       density="compact"
       variant="underlined"
       label="Желаемая сессия"
-    >
-    </v-select>
+      class="select-session-form__select"
+    />
     <v-btn
       @click="submitSessionsForm(selectSession)"
       block
@@ -45,7 +57,11 @@
 </template>
 
 <script setup lang="ts">
-  import {ref} from 'vue'
+  import {
+    computed,
+    ref,
+    unref
+  } from 'vue'
   import {useSessionForm} from '@/components/session/features/useSessionForm'
   import {useSessionsStore} from '@/stores/useSessionsStore'
   import {useAuthStore} from '@/stores/useAuthStore'
@@ -58,9 +74,13 @@
   const {
     deleteSession,
     getSessionsList,
+    getSubjectsList,
     selectSession
   } = useSessionForm()
+  getSubjectsList()
   getSessionsList()
+
+  const isSessionSelectDisabled = computed(() => !unref(sessionsStore.selectedSubjectId))
 
   const submitSessionsForm = async (callback: () => {}) => {
     const {valid} = await sessionsForm.value.validate()

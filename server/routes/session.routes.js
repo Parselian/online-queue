@@ -4,6 +4,7 @@ const SessionController = require("../controller/session.controller")
 
 router.post('/create-session', SessionController.createSession)
 router.get('/sessions', SessionController.getSessions)
+router.get('/subjects', SessionController.getSubjects)
 router.get('/get-session', SessionController.getSingleSession)
 router.delete('/delete-session', SessionController.deleteSession)
 

@@ -13,10 +13,26 @@ export const useSessionForm = () => {
         params: {
           user_type: localStorage.user_type,
           user_id: localStorage.user_id,
+          selected_subject_id: sessionsStore.selectedSubjectId
         }
       })
 
       sessionsStore.setSessionsList(await response.data)
+      sessionsStore.clearSelectedSessionId()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const getSubjectsList = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/subjects`, {
+        params: {
+          user_id: localStorage.user_id,
+          user_type: localStorage.user_type,
+        }
+    })
+      sessionsStore.setSubjectsList(await response.data)
     } catch (e) {
       console.error(e)
     }
@@ -54,6 +70,7 @@ export const useSessionForm = () => {
     createSession,
     deleteSession,
     getSessionsList,
+    getSubjectsList,
     selectSession,
   }
 }
