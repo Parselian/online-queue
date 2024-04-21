@@ -13,12 +13,7 @@
         <slot name="controls"></slot>
       </div>
     </div>
-    <div
-      v-if="store.isModalOpen"
-      class="layout__modals"
-    >
-      <HelperModal />
-    </div>
+    <HelperModal />
     <SupportBubble/>
   </div>
 </template>
@@ -28,10 +23,6 @@
   import HeaderComponent from '@/components/Header/HeaderComponent.vue'
   import { ref } from 'vue';
   import SupportBubble from '@/components/SupportBubble/SupportBubble.vue'
-
-  import { useModalsStore } from '@/stores/useModalsStore'
-
-  const store = useModalsStore()
 
   const userName = ref<string>(localStorage.user_name || '')
 </script>
