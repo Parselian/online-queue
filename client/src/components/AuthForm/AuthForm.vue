@@ -84,12 +84,11 @@
   } from '@/constants/regexRules'
 
   const rules = ref({
-    required: (v: string) => !!v.trim() || 'Заполните поле',
-    min: (v: string) => v.length >= 8 || 'Мин. 8 - 16 символов',
+    required: (v: string) => !!v.trim() || 'Только буквы рус./лат. алфавита',
     login: (v: string) => loginValidation.test(v) || 'Размер логина: 6 - 20 лат. символов/цифр',
     password: (v: string) => passwordValidation.test(v) || '8-16 лат. символов + цифр',
-    group: (v: number) => (!isNaN(v) && v.toString().length === 4) || 'Номер группы - 4 цифры без пробелов',
-    onlyText: (v: string) => onlyTextValidation.test(v) || 'Только буквы рус./лат. алфавита'
+    group: (v: string) => (!isNaN(+v) && v !== null && +v.toString().trim().length === 4) || 'Номер группы - 4 цифры без пробелов',
+    onlyText: (v: string) => (!!v.trim() && onlyTextValidation.test(v)) || 'Только буквы рус./лат. алфавита'
   })
 
   const store = useAuthStore()
