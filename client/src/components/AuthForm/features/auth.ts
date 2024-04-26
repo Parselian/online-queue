@@ -33,7 +33,7 @@ export const register = async () => {
     const response = await axios.post(`${import.meta.env.VITE_HOSTNAME}/api/user`, store.userFormData)
 
     if (response.status >= 200 && response.status < 300) {
-      alert('Вы успешно зарегестрировались!')
+      alert('Вы успешно зарегистрировались!')
       router.push('/login')
     }
   } catch (e: any) {

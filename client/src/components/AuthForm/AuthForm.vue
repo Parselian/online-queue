@@ -57,7 +57,7 @@
         :to="'/register'"
         class="auth-form-footer__link"
       >
-        Зарегестрироваться
+        Зарегистрироваться
       </RouterLink>
       <RouterLink
         v-else-if="store.isActiveRegisterRoute"
@@ -94,8 +94,8 @@
   const store = useAuthStore()
   const form = ref()
 
-  const submitText = computed(() => store.isActiveLoginRoute ? 'Войти' : 'Зарегестрироваться')
-  const footerTitle = computed(() => store.isActiveLoginRoute ? 'Нет аккаунта?' : 'Уже зарегестрированы?')
+  const submitText = computed(() => store.isActiveLoginRoute ? 'Войти' : 'Зарегистрироваться')
+  const footerTitle = computed(() => store.isActiveLoginRoute ? 'Нет аккаунта?' : 'Уже зарегистрированы?')
 
   const validate = async () => {
     const {valid} = await form.value.validate()
