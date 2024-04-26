@@ -14,7 +14,7 @@
     />
     <v-text-field
       v-model="queueStore.ticketRequest"
-      :rules="[v => !!v.trim() || 'Укажите ваш запрос']"
+      :rules="[(v: string) => requestValidation.test(v) || 'Укажите ваш запрос. 1-64 символа рус./лат. алфавита']"
       density="compact"
       variant="underlined"
       label="Ваш запрос"
@@ -34,6 +34,7 @@
   import {ref} from 'vue'
   import {useQueueStore} from '@/stores/useQueueStore'
   import {useCreateTicketForm} from '@/components/queue/CreateTicketForm/features/useCreateTicketForm'
+  import { requestValidation } from '@/constants/regexRules'
 
   const queueStore = useQueueStore()
   const {createQueueTicket} = useCreateTicketForm()

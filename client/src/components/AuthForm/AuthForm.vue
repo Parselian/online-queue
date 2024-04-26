@@ -7,18 +7,18 @@
       <v-text-field
         v-model="store.userFormData.user_name"
         density="compact"
-        :rules="[rules.required]"
+        :rules="[rules.onlyText]"
         label="Имя"
       />
       <v-text-field
         v-model="store.userFormData.user_surname"
         density="compact"
-        :rules="[rules.required]"
+        :rules="[rules.onlyText]"
         label="Фамилия"
       />
       <v-text-field
         v-model="store.userFormData.user_group"
-        :rules="[rules.required]"
+        :rules="[rules.group]"
         density="compact"
         label="Группа"
       />
@@ -26,7 +26,7 @@
 
     <v-text-field
       v-model="store.userFormData.login"
-      :rules="[rules.required]"
+      :rules="[rules.login]"
       density="compact"
       type="text"
       clearable
@@ -34,10 +34,10 @@
     />
     <v-text-field
       v-model="store.userFormData.password"
-      :rules="[rules.min, rules.required]"
+      :rules="[rules.password]"
       density="compact"
-      type="password"
       clearable
+      type="password"
       label="Пароль"
     />
     <v-btn
@@ -76,11 +76,20 @@
     ref
   } from 'vue'
   import { useAuthStore } from '@/stores/useAuthStore'
-  import { login, register } from './features/auth';
+  import { login, register } from './features/auth'
+  import {
+    loginValidation,
+    passwordValidation,
+    onlyTextValidation,
+  } from '@/constants/regexRules'
 
   const rules = ref({
-    required: (value: string) => !!value.trim() || 'Заполните поле',
-    min: (v: string) => v.length >= 8 || 'Мин. 8 символов'
+    required: (v: string) => !!v.trim() || 'Заполните поле',
+    min: (v: string) => v.length >= 8 || 'Мин. 8 - 16 символов',
+    login: (v: string) => loginValidation.test(v) || 'Размер логина: 6 - 20 лат. символов/цифр',
+    password: (v: string) => passwordValidation.test(v) || '8-16 лат. символов + цифр',
+    group: (v: number) => (!isNaN(v) && v.toString().length === 4) || 'Номер группы - 4 цифры без пробелов',
+    onlyText: (v: string) => onlyTextValidation.test(v) || 'Только буквы рус./лат. алфавита'
   })
 
   const store = useAuthStore()
@@ -99,4 +108,4 @@
 
 <style scoped lang="scss">
   @import '@/components/AuthForm/scss/authForm/auth-form.scss';
-</style>
+</style>@/constants/regexRules

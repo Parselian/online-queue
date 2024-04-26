@@ -16,6 +16,7 @@
         <hr class="version-info-modal__separator"/>
         <span class="version-info-modal__text">Обновления следующей версии:</span>
         <ul class="version-info-modal__list version-info-modal-list">
+          <li class="version-info-modal-list__item">Редактирование персональных данных. Управление паролями (личный кабинет);</li>
           <li class="version-info-modal-list__item">автообновление статусов по активным тикетам и сессиям (клиент + админ);</li>
           <li class="version-info-modal-list__item">переработка дизайна;</li>
         </ul>

@@ -15,6 +15,7 @@
     display: block;
     font-size: 0.9em;
     line-height: 1.2;
+    word-break: break-word;
     &:not(:last-child) {
       margin-bottom: 5px;
     }
