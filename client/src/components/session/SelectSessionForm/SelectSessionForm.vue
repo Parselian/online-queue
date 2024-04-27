@@ -77,8 +77,12 @@
     getSubjectsList,
     selectSession
   } = useSessionForm()
-  getSubjectsList()
-  getSessionsList()
+
+  async function init() {
+    await getSubjectsList()
+    getSessionsList()
+  }
+  init()
 
   const isSessionSelectDisabled = computed(() => !unref(sessionsStore.selectedSubjectId))
 

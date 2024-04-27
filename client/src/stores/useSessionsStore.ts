@@ -10,6 +10,7 @@ export const useSessionsStore = defineStore('sessions', () => {
 
   const setSessionsList = (sessions: []) => sessionsList.value = sessions
   const setSubjectsList = (subjects: []) => subjectsList.value = subjects
+  const setSelectedSubjectId = (id: number) => selectedSubjectId.value = id
   const clearSelectedSessionId = () => selectedSessionId.value = null
 
   const getSelectedSessionId = () => selectedSessionId.value
@@ -23,6 +24,7 @@ export const useSessionsStore = defineStore('sessions', () => {
     selectedSessionId,
     selectedSubjectId,
     setSessionsList,
+    setSelectedSubjectId,
     setSubjectsList,
   }
 })

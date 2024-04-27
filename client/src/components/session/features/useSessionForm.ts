@@ -32,7 +32,10 @@ export const useSessionForm = () => {
           user_type: localStorage.user_type,
         }
     })
-      sessionsStore.setSubjectsList(await response.data)
+      const subjects = await response.data
+      sessionsStore.setSubjectsList(subjects)
+
+      if (subjects.length === 1 ?? authStore.isUserAdmin) sessionsStore.setSelectedSubjectId(subjects[0].ID)
     } catch (e) {
       console.error(e)
     }
