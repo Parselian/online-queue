@@ -11,11 +11,18 @@ export const useAuthStore = defineStore('auth',() => {
     user_group: null,
     user_type: 1,
   })
+  const resetPasswordFormData = ref({
+    login: '',
+    password: '',
+    confirmPassword: '',
+  })
+  const newPassword = ref()
   const isLoggedIn = ref(false)
   const isUserAdmin = computed(() => +localStorage.user_type === 2)
-  const getActiveRoute = ref(router.currentRoute.value.name)
   const isActiveLoginRoute = computed(() => router.currentRoute.value.name === 'login')
   const isActiveRegisterRoute = computed(() => router.currentRoute.value.name === 'register')
+
+  const getActiveRoute = ref(router.currentRoute.value.name)
 
   return {
     getActiveRoute,
@@ -23,6 +30,8 @@ export const useAuthStore = defineStore('auth',() => {
     isActiveRegisterRoute,
     isLoggedIn,
     isUserAdmin,
+    newPassword,
     userFormData,
+    resetPasswordFormData,
   }
 })

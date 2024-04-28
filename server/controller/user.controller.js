@@ -59,6 +59,20 @@ class UserController {
       console.log(e)
     }
   }
+  async updatePassword(req, res) {
+    try {
+      const {
+        new_password,
+        login,
+      } = await req.body
+      const response = await db.query('UPDATE users SET password = $1 WHERE login = $2 AND user_type != 2', [new_password, login])
+
+      if (response.rowCount < 1) return res.status(452).send(`Error! User not found. check the correct spelling of your login.`)
+      else res.status(200).send('OK')
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
 module.exports = new UserController()

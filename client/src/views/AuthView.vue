@@ -4,16 +4,19 @@
       :elevation="5"
       class="login-form"
     >
-      <h2 class="auth-form__title">Авторизация</h2>
-      <AuthForm/>
+      <ForgotPassword v-if="route.name === 'resetPassword'" />
+      <AuthForm v-else/>
     </v-sheet>
   </AuthLayout>
 </template>
 
 <script setup lang="ts">
+  import {useRoute} from 'vue-router'
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
-  // import LoginForm from '@/components/LoginForm/LoginForm.vue'
-  import AuthForm from '@/components/AuthForm/AuthForm.vue';
+  import AuthForm from '@/components/AuthForm/AuthForm.vue'
+  import ForgotPassword from '@/components/auth/ForgotPassword/ForgotPassword.vue'
+
+  const route = useRoute()
 </script>
 
 <style scoped lang="scss">

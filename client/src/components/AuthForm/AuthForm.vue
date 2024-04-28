@@ -3,6 +3,7 @@
     @submit.prevent="validate"
     ref="form"
   >
+    <h2 class="auth-form__title">{{ title }}</h2>
     <template v-if="store.isActiveRegisterRoute">
       <v-text-field
         v-model="store.userFormData.user_name"
@@ -22,24 +23,51 @@
         density="compact"
         label="Группа"
       />
+      <v-text-field
+        v-model="store.userFormData.login"
+        :rules="[rules.login]"
+        density="compact"
+        type="text"
+        clearable
+        label="Логин"
+      />
+      <v-text-field
+        v-model="store.userFormData.password"
+        :rules="[rules.password]"
+        density="compact"
+        clearable
+        type="password"
+        label="Пароль"
+      />
     </template>
 
-    <v-text-field
-      v-model="store.userFormData.login"
-      :rules="[rules.login]"
-      density="compact"
-      type="text"
-      clearable
-      label="Логин"
-    />
-    <v-text-field
-      v-model="store.userFormData.password"
-      :rules="[rules.password]"
-      density="compact"
-      clearable
-      type="password"
-      label="Пароль"
-    />
+    <template v-else-if="store.isActiveLoginRoute">
+      <v-text-field
+        v-model="store.userFormData.login"
+        :rules="[rules.login]"
+        density="compact"
+        type="text"
+        clearable
+        label="Логин"
+      />
+      <v-text-field
+        v-model="store.userFormData.password"
+        :rules="[rules.password]"
+        density="compact"
+        clearable
+        type="password"
+        label="Пароль"
+      />
+      <RouterLink
+        :to="'/reset-password'"
+        class="auth-form__forgot-pass"
+      >
+        Забыли пароль?
+      </RouterLink>
+    </template>
+
+
+
     <v-btn
       type="submit"
       block
@@ -48,6 +76,7 @@
     >
       {{ submitText }}
     </v-btn>
+
     <div class="auth-form-footer">
       <span class="auth-form-footer__label">
         {{ footerTitle }}
@@ -94,14 +123,15 @@
   const store = useAuthStore()
   const form = ref()
 
+  const title = computed(() => store.isActiveLoginRoute ? 'Авторизация' : 'Регистрация')
   const submitText = computed(() => store.isActiveLoginRoute ? 'Войти' : 'Зарегистрироваться')
   const footerTitle = computed(() => store.isActiveLoginRoute ? 'Нет аккаунта?' : 'Уже зарегистрированы?')
 
   const validate = async () => {
     const {valid} = await form.value.validate()
 
-    if (valid && store.isActiveLoginRoute) login()
-    if (valid && store.isActiveRegisterRoute) register()
+    if (valid && store.isActiveLoginRoute) login(form)
+    if (valid && store.isActiveRegisterRoute) register(form)
   }
 </script>
 
