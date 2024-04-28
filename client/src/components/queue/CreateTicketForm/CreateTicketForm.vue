@@ -44,7 +44,10 @@
   const submitForm = async () => {
     const {valid} = await createTicketForm.value.validate()
 
-    if (valid) createQueueTicket()
+    if (valid) {
+      createQueueTicket()
+      createTicketForm.value.reset()
+    }
   }
 </script>
 

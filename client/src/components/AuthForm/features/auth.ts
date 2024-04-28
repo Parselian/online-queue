@@ -50,7 +50,7 @@ export const updatePassword = async (formInstance: any) => {
     if (response.status >= 200 && response.status < 300) {
       alert('Пароль успешно изменён!')
       formInstance.value.reset()
-      // router.push('/login')
+      router.push('/login')
     }
   } catch (e: any) {
     alert('Что-то пошло не так. Проверьте правильность написания логина')

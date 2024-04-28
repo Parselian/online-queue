@@ -35,7 +35,7 @@ export const useSessionForm = () => {
       const subjects = await response.data
       sessionsStore.setSubjectsList(subjects)
 
-      if (subjects.length === 1 ?? authStore.isUserAdmin) sessionsStore.setSelectedSubjectId(subjects[0].ID)
+      if (subjects.length === 1 && authStore.isUserAdmin) sessionsStore.setSelectedSubjectId(subjects[0].ID)
     } catch (e) {
       console.error(e)
     }
