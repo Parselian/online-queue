@@ -45,8 +45,7 @@
     const {valid} = await createTicketForm.value.validate()
 
     if (valid) {
-      createQueueTicket()
-      createTicketForm.value.reset()
+      await createQueueTicket()
     }
   }
 </script>

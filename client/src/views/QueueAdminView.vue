@@ -88,4 +88,3 @@
 <style>
   @import "@/views/styles/queueAdminView/queue-view.scss";
 </style>
-./features/useQueueAdminView/queueAdminView
