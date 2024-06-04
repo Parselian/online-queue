@@ -29,12 +29,20 @@
         </v-btn>
       </template>
       <v-btn
-        v-else
         @click="updateQueue(false)"
+        color="light-blue"
+        variant="outlined"
+        class="queue__button"
+      >
+        Обновить кол-во
+      </v-btn>
+      <v-btn
+        v-if="store.isCurrentClientExists"
+        @click="openTicketsList"
         color="light-blue"
         class="queue__button"
       >
-        Обновить
+        Список тикетов
       </v-btn>
       <v-btn
         @click="router.push('/admin/session')"
@@ -61,21 +69,35 @@
   import router from '@/router'
 
   import { useQueueStore } from "@/stores/useQueueStore"
-
+  import { useAuthStore } from '@/stores/useAuthStore'
   import { useQueueAdminView } from '@/views/features/useQueueAdminView/useQueueAdminView'
 
-  if (!localStorage.selected_session_id) router.push('/admin/session')
+  import { useModalsStore } from '@/stores/useModalsStore'
+
+  const {toggleTicketsListModal} = useModalsStore()
+
+  const authStore = useAuthStore()
+  if ((!authStore.isUserAdmin && !localStorage.selected_session_id) || !authStore.isUserAdmin) {
+    router.push('/session')
+  }
+  if (authStore.isUserAdmin && !localStorage.selected_session_id) router.push('/admin/session')
 
   const store = useQueueStore()
   const {
     clearQueue,
     updateQueue,
     getNextClient,
-    getQueueAmount
+    getQueueAmount,
+    getAllTickets,
   } = useQueueAdminView()
 
   getNextClient()
   getQueueAmount()
+
+  async function openTicketsList() {
+    await getAllTickets()
+    toggleTicketsListModal()
+  }
 
   setInterval(async () => {
     // if (!localStorage.user_id) return

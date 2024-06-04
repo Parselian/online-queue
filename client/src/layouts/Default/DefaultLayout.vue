@@ -16,6 +16,7 @@
     <VersionInfoModal />
     <SupportModal />
     <SupportBubble/>
+    <TicketsListModal />
   </div>
 </template>
 
@@ -25,6 +26,7 @@
   import HeaderComponent from '@/components/Header/HeaderComponent.vue'
   import { ref } from 'vue';
   import SupportBubble from '@/components/SupportBubble/SupportBubble.vue'
+  import TicketsListModal from '@/components/modals/TicketsListModal/TicketsListModal.vue';
 
   const userName = ref<string>(localStorage.user_name || '')
 </script>

@@ -3,9 +3,13 @@ import { defineStore } from 'pinia'
 
 export const useModalsStore = defineStore('modals', () => {
   const isSupportModalOpen = ref(false)
+  const isTicketsListModalOpen = ref(false)
   const isVersionInfoModalOpen = ref(!localStorage.isVersionInfoAlreadyBeenShown)
   function toggleSupportModal() {
     isSupportModalOpen.value = !isSupportModalOpen.value
+  }
+  function toggleTicketsListModal() {
+    isTicketsListModalOpen.value = !isTicketsListModalOpen.value
   }
 
   function closeVersionInfoModal() {
@@ -15,7 +19,9 @@ export const useModalsStore = defineStore('modals', () => {
 
   return {
     isSupportModalOpen,
+    isTicketsListModalOpen,
     toggleSupportModal,
+    toggleTicketsListModal,
     closeVersionInfoModal,
     isVersionInfoModalOpen
   }

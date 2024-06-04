@@ -9,6 +9,12 @@ class QueueController {
       ticket_request,
     } = await req.body
 
+    // let selectedSessionTickets = await db.query('SELECT * FROM queue_tickets WHERE session_id = $1', [session_id])
+
+    // const selectedSessionTicketsAmount = selectedSessionTickets.rows.length
+    
+    // console.log(selectedSessionTicketsAmount);
+
     let lastTicketPosition = await db.query('SELECT MAX(ticket_position) FROM queue_tickets WHERE session_id = $1', [session_id])
 
     const ticketAbbreviation = await `${user_surname.substring(0, 1).toUpperCase()}${!!lastTicketPosition.rows[0].max ? lastTicketPosition.rows[0].max : 1}`
@@ -50,9 +56,46 @@ class QueueController {
   async getQueueTickets(req, res) {
     const {session_id} = await req.query
 
-    const queueTickets = await db.query('SELECT * FROM queue_tickets WHERE session_id = $1 AND is_ticket_closed = false', [session_id])
+    const rawTicketsData = await db.query('SELECT * FROM queue_tickets WHERE session_id = $1 AND is_ticket_closed = false', [session_id])
 
-    res.json(queueTickets.rows)
+    const students = await db.query('SELECT * FROM users WHERE user_type = 1')
+
+    const tickets = []
+    
+
+    function buildTickets() {
+      rawTicketsData.rows.forEach(async (ticket) => {
+        const student = await students.rows.find(student => +student.id === +ticket.student_id);
+
+        tickets.push({
+          ...ticket,
+          user_name: student.user_name,
+          user_surname: student.user_surname,
+          user_group: student.user_group,
+        });
+      })
+    }
+    await buildTickets()
+
+    res.json(tickets);
+  }
+  async moveTicketToEnd(req, res) {
+    try {
+      const {
+        session_id,
+        ticket_id,
+      } = await req.body
+      let lastTicketPosition = await db.query('SELECT MAX(ticket_position) FROM queue_tickets WHERE session_id = $1', [session_id])
+      
+      lastTicketPosition = lastTicketPosition.rows[0].max + 1
+
+      await db.query('UPDATE queue_tickets SET ticket_position = $1 WHERE id = $2 AND session_id = $3', [lastTicketPosition, ticket_id, session_id])
+
+      res.status(200).send('Тикет успешно перемещён в конец очереди!')
+    } catch (e) {
+      console.log('Что-то пошло не так', e)
+      res.status(400).send('Ошибка перемещения тикета в конец очереди')
+    }
   }
   async clearQueue(req, res) {
     try {

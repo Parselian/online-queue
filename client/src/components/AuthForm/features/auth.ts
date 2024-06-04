@@ -21,6 +21,8 @@ export const login = async (formInstance: any) => {
     else router.push('/session')
     formInstance.value.reset()
   } catch (e: any) {
+    console.log(e.response);
+    
     if (e.response.status === 453) alert('Неправильный логин или пароль!')
     console.error(e)
   }

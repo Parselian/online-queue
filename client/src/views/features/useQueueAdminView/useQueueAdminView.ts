@@ -36,14 +36,19 @@ export const useQueueAdminView = () => {
     }
   }
 
-  const closeCurrentTicket = async () => {
+  const closeCurrentTicket = async (ticketId?: number | string) => {
     try {
-      if (store.currentClientInfo?.ticketId) {
+      if (ticketId || store.currentClientInfo?.ticketId) {
+        console.log('here');
+        
         await axios.put(`${import.meta.env.VITE_HOSTNAME}/api/close-ticket`, {
-          ticket_id: store.currentClientInfo?.ticketId
+          ticket_id: ticketId ? ticketId : store.currentClientInfo?.ticketId
         })
+
+        if (ticketId) alert('Тикет успешно закрыт!');
       }
     } catch (e) {
+      alert('Что-то пошло не так.');
       console.error(e)
     }
   }
@@ -87,11 +92,47 @@ export const useQueueAdminView = () => {
     }
   }
 
+  const getAllTickets = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-queue-tickets`, {
+        params: {
+          session_id: localStorage.selected_session_id
+        }
+      })
+
+      console.log(localStorage.selected_session_id);
+      
+
+      store.setQueueTicketsList(response.data)
+    } catch(e) {
+      console.error('Ошибка во время получения списка тикетов', e)
+    }
+  }
+
+  const moveTicketToEnd = async (ticketId: number | string) => {
+    try {
+      console.log(ticketId);
+      
+      const response = await axios.put(`${import.meta.env.VITE_HOSTNAME}/api/move-ticket-to-end`, {
+        session_id: localStorage.selected_session_id,
+        ticket_id: ticketId,
+      })
+
+      alert('Тикет успешно перемещён в конец очереди!');
+    } catch (e) {
+      alert('Что-то пошло не так');
+      
+      console.error('Ошибка перемещения тикета в конец очереди', e);
+    }
+  }
+
   return {
     getNextClient,
     getQueueAmount,
     clearQueue,
     closeCurrentTicket,
     updateQueue,
+    getAllTickets,
+    moveTicketToEnd,
   }
 }

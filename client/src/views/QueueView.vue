@@ -10,7 +10,8 @@
       <div class="queue-ticket__label">Ваш талон:</div>
       <h1 class="queue-ticket__title">{{ store.openedTicketData.ticket_abbreviation }}</h1>
       <div class="queue-ticket__position">
-        <!-- <b>Поизиция в очереди:</b> {{ createdTicketData.ticket_position }} -->
+	<b style="color:red">Внимание:</b> число в талоне НЕ показывает твою позицию в очереди. Не пугайся :)
+      <!--  <b>Поизиция в очереди:</b> {{ store.queueAmount }} -->
       </div>
     </div>
 
