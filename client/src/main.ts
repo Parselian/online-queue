@@ -8,22 +8,7 @@ import App from './App.vue'
 import router from './router'
 
 import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import { aliases, md } from 'vuetify/iconsets/md'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
-const vuetify = createVuetify({
-  components,
-  directives,
-  icons: {
-    defaultSet: 'md',
-    aliases,
-    sets: {
-      md,
-    },
-  },
-})
+import { vuetify } from './plugins/vuetify'
 
 const app = createApp(App)
 const pinia = createPinia()
