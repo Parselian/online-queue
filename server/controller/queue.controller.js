@@ -11,17 +11,19 @@ class QueueController {
 
     // let selectedSessionTickets = await db.query('SELECT * FROM queue_tickets WHERE session_id = $1', [session_id])
 
-    // const selectedSessionTicketsAmount = selectedSessionTickets.rows.length
-    
-    // console.log(selectedSessionTicketsAmount);
+    // const ticketPosition = selectedSessionTickets.rows.length + 1
 
-    let lastTicketPosition = await db.query('SELECT MAX(ticket_position) FROM queue_tickets WHERE session_id = $1', [session_id])
+    let lastTicketPosition = await db.query('SELECT MAX(ticket_position) FROM queue_tickets WHERE session_id = $1 AND is_ticket_closed = false', [session_id])
 
-    const ticketAbbreviation = await `${user_surname.substring(0, 1).toUpperCase()}${!!lastTicketPosition.rows[0].max ? lastTicketPosition.rows[0].max : 1}`
+    console.log(lastTicketPosition.rows[0].max);
+
+    const ticketPosition = lastTicketPosition.rows[0].max ? +lastTicketPosition.rows[0].max + 1 : 1
+
+    const ticketAbbreviation = await `${user_surname.substring(0, 1).toUpperCase()}${ticketPosition}`
 
     const newTicket = await db.query(
-      'INSERT INTO queue_tickets (session_id, student_id, ticket_request, ticket_abbreviation) values ($1, $2, $3, $4) RETURNING *',
-      [+session_id, +student_id, ticket_request, ticketAbbreviation])
+      'INSERT INTO queue_tickets (session_id, student_id, ticket_request, ticket_abbreviation, ticket_position) values ($1, $2, $3, $4, $5) RETURNING *',
+      [+session_id, +student_id, ticket_request, ticketAbbreviation, ticketPosition])
 
     res.json(newTicket.rows[0])
   }
@@ -56,7 +58,7 @@ class QueueController {
   async getQueueTickets(req, res) {
     const {session_id} = await req.query
 
-    const rawTicketsData = await db.query('SELECT * FROM queue_tickets WHERE session_id = $1 AND is_ticket_closed = false', [session_id])
+    const rawTicketsData = await db.query('SELECT * FROM queue_tickets WHERE session_id = $1 AND is_ticket_closed = false ORDER BY ticket_position ASC', [session_id])
 
     const students = await db.query('SELECT * FROM users WHERE user_type = 1')
 

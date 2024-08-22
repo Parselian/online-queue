@@ -12,6 +12,7 @@ export const useQueueStore = defineStore('queue', () => {
   const openedTicketData = ref()
   const currentClientInfo = ref()
   const queueAmount = ref()
+  const studentQueuePosition = ref()
   const queueTicketsList = ref()
 
   const setQueueTicketsList = (list: any[]) => queueTicketsList.value = list
@@ -20,6 +21,7 @@ export const useQueueStore = defineStore('queue', () => {
   const setOpenedTicketData = (data: Record<string, unknown>) => openedTicketData.value = data
   const setCurrentClientInfo = (clientInfo: Record<string, unknown>) => currentClientInfo.value = clientInfo
   const setQueueAmount = (amount: number) => queueAmount.value = amount
+  const setStudentQueuePosition = (position: number) => studentQueuePosition.value = position
   const resetTicketRequest = () => ticketRequest.value = ''
 
   const isCurrentClientExists = computed(() => !!unref(currentClientInfo)?.ticketId)
@@ -30,6 +32,7 @@ export const useQueueStore = defineStore('queue', () => {
     isOpenedTicketExists,
     openedTicketData,
     sessionName,
+    studentQueuePosition,
     resetTicketRequest,
     setCurrentClientInfo,
     setIsOpenedTicketExists,
@@ -37,6 +40,7 @@ export const useQueueStore = defineStore('queue', () => {
     setQueueTicketsList,
     setSessionName,
     setQueueAmount,
+    setStudentQueuePosition,
     queueAmount,
     ticketRequest,
     queueTicketsList,

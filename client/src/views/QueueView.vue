@@ -11,7 +11,8 @@
       <h1 class="queue-ticket__title">{{ store.openedTicketData.ticket_abbreviation }}</h1>
       <div class="queue-ticket__position">
 	<b style="color:red">Внимание:</b> число в талоне НЕ показывает твою позицию в очереди. Не пугайся :)
-      <!--  <b>Поизиция в очереди:</b> {{ store.queueAmount }} -->
+  <hr/>
+      <b>Позиция в очереди:</b> {{ store.studentQueuePosition }}
       </div>
     </div>
 
@@ -21,7 +22,7 @@
       <template v-else>
         <v-btn
           block
-          @click="getTicket"
+          @click="update"
           color="light-blue"
         >
           Обновить
@@ -47,13 +48,23 @@
   import {useCreateTicketForm} from '@/components/queue/CreateTicketForm/features/useCreateTicketForm'
   import {useQueueStore} from '@/stores/useQueueStore'
   import CreateTicketForm from '@/components/queue/CreateTicketForm/CreateTicketForm.vue'
+  import { useQueueAdminView } from '@/views/features/useQueueAdminView/useQueueAdminView'
 
   if (!localStorage.selected_session_id) router.push('/session')
+
+  const {
+    getStudentQueuePosition,
+  } = useQueueAdminView()
 
   const store = useQueueStore()
   const {getTicket} = useCreateTicketForm()
 
-  getTicket()
+  async function update() {
+    await getTicket()
+    await getStudentQueuePosition()
+  }
+
+  update()
 
   // setInterval(async () => {
   //   if (!localStorage.user_id) return

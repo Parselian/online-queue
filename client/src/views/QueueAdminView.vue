@@ -22,7 +22,7 @@
         </div>
         <v-btn
           @click="updateQueue"
-          color="light-blue"
+          color="green"
           class="queue__button"
         >
           Следующий по очереди
@@ -34,12 +34,12 @@
         variant="outlined"
         class="queue__button"
       >
-        Обновить кол-во
+        Обновить
       </v-btn>
       <v-btn
         v-if="store.isCurrentClientExists"
         @click="openTicketsList"
-        color="light-blue"
+        color="grey"
         class="queue__button"
       >
         Список тикетов

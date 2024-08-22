@@ -85,15 +85,16 @@
   
   const store = useModalsStore();
 
-  async function closeTicket(e) {     
+  async function closeTicket(e: any) {     
     await closeCurrentTicket(e.currentTarget.dataset.value)
     await updateQueue(false)
     await getAllTickets()
   }
 
-  async function punishLatePerson(e) {
+  async function punishLatePerson(e: any) {
     await moveTicketToEnd(e.currentTarget.dataset.value)
     await updateQueue(false)
+    await getAllTickets()
   }
 
   async function updateTicketsList() {

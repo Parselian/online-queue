@@ -77,6 +77,22 @@ export const useQueueAdminView = () => {
     }
   }
 
+  const getStudentQueuePosition = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_HOSTNAME}/api/get-queue-tickets`, {
+        params: {
+          session_id: localStorage.selected_session_id
+        }
+      })
+
+      const position = await response.data.findIndex((ticket: any, index: number) => +ticket.student_id === +localStorage.user_id)
+
+      store.setStudentQueuePosition(position + 1)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const clearQueue = async () => {
     if (!confirm('Вы действительно хотите удалить все талоны текущей сессии?')) return
     try {
@@ -134,5 +150,6 @@ export const useQueueAdminView = () => {
     updateQueue,
     getAllTickets,
     moveTicketToEnd,
+    getStudentQueuePosition,
   }
 }
