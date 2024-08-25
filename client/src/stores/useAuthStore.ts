@@ -21,6 +21,7 @@ export const useAuthStore = defineStore('auth',() => {
   const isUserAdmin = computed(() => +localStorage.user_type === 2)
   const isActiveLoginRoute = computed(() => router.currentRoute.value.name === 'login')
   const isActiveRegisterRoute = computed(() => router.currentRoute.value.name === 'register')
+  const isActiveResetPasswordRoute = computed(() => router.currentRoute.value.name === 'resetPassword')
 
   const getActiveRoute = ref(router.currentRoute.value.name)
 
@@ -28,6 +29,7 @@ export const useAuthStore = defineStore('auth',() => {
     getActiveRoute,
     isActiveLoginRoute,
     isActiveRegisterRoute,
+    isActiveResetPasswordRoute,
     isLoggedIn,
     isUserAdmin,
     newPassword,

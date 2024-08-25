@@ -1,5 +1,10 @@
-.layout {
-  padding: 0 1rem;
+.auth {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // overflow: hidden;
 
   &__modals {
     display: flex;
@@ -14,5 +19,69 @@
     z-index: 1000;
     position: fixed;
     background-color: rgba($color: #000000, $alpha: 0.3);
+  }
+
+  &__back {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 32px;
+  }
+
+  &__body {
+    position: relative;
+    padding: 20px 20px 30px;
+    background: white;
+    width: 100%;
+    margin-top: 40px;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #17A0FF;
+  }
+
+  &__subtitle {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #969696
+  }
+}
+
+.auth-bg {
+  width: inherit;
+  height: inherit;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background: rgb(0,70,165);
+  background: linear-gradient(29deg, rgba(0,70,165,1) 0%, rgba(0,120,215,1) 29%, rgba(23,160,255,1) 59%, rgba(53,190,255,1) 100%);
+  &__top {
+    position: absolute;
+    right: 0;
+    width: 70vw;
+    max-width: 500px;
+    height: fit-content;
+  }
+
+  &__bottom {
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    width: 100vw;
+    max-width: 500px;
+    height: fit-content;
+  }
+
+  &__lock {
+    position: absolute;
+    bottom: 40vh;
+    width: fit-content;
+    height: 50vh;
+    max-height: 375px;
   }
 }

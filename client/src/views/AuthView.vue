@@ -1,12 +1,11 @@
 <template>
   <AuthLayout>
-    <v-sheet
-      :elevation="5"
-      class="login-form"
-    >
+    <template #title>{{ title }}</template>
+    <template #subtitle>{{ subtitle }}</template>
+    <template #default>
       <ForgotPassword v-if="route.name === 'resetPassword'" />
       <AuthForm v-else/>
-    </v-sheet>
+    </template>
   </AuthLayout>
 </template>
 
@@ -14,11 +13,15 @@
   import {useRoute} from 'vue-router'
   import AuthLayout from '@/layouts/Auth/AuthLayout.vue'
   import AuthForm from '@/components/AuthForm/AuthForm.vue'
+  import { useAuthStore } from '@/stores/useAuthStore'
   import ForgotPassword from '@/components/auth/ForgotPassword/ForgotPassword.vue'
+  import { computed } from 'vue'
 
   const route = useRoute()
-</script>
+  const store = useAuthStore()
 
-<style scoped lang="scss">
-  @import '@/views/styles/authView/auth-view.scss';
-</style>
+
+  const title = computed(() => store.isActiveLoginRoute ? 'С возвращением!' : store.isActiveResetPasswordRoute ? 'Забыли пароль?' : 'Регистрация')
+  const subtitle = computed(() => store.isActiveLoginRoute ? 'Для продолжения необходимо авторизоваться' : store.isActiveResetPasswordRoute ? 'Просто придумай новый :)' : 'Ты не пожалеешь! ;)')
+
+</script>

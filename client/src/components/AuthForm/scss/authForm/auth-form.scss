@@ -1,22 +1,58 @@
 .auth-form {
-  &__title {
-    margin-bottom: 20px;
-    display: block;
-    text-align: center;
+  &__field {
+    &s {
+      // display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    // width: 45%;
+    font-size: 12px;
+    // &:nth-child(odd):not(:last-child) {
+    //   margin-right: 5%;
+    // }
   }
-  &__forgot-pass {
+
+  &__forgot {
     display: block;
-    margin-bottom: 20px;
-    text-decoration: underline;
+    margin-left: auto;
+    text-align: right;
+    font-weight: 600;
+    color: #17A0FF;
+  }
+
+  &__control {
+    &s {
+      margin-top: 20px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
   }
 }
-.auth-form-footer {
-  padding-top: 20px;
-  text-align: center;
-  &__link {
-    display: block;
-    font-weight: 600;
-    font-size: 1.2rem;
-    text-decoration: underline;
+
+.auth-form-controls {
+  &__label {
+    position: relative;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 12px;
+    color: #969696;
+    font-weight: 500;
+    &:before, &:after {
+      position: absolute;
+      top: calc(50% - 1px);
+      transform: translateY(-50%);
+      width: 85px;
+      height: 1px;
+      background: #969696;
+      content: "";
+    }
+    &:before {
+      left: 10px;
+    }
+    &:after {
+      right: 10px;
+    }
   }
 }
