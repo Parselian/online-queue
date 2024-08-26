@@ -4,8 +4,20 @@
       :username="userName"
       class="layout__header"
     />
+    <div class="layout-bg">
+      <v-icon
+        class="layout-bg__top"
+        icon="custom:topWaves"
+      />
+      <v-icon
+        class="layout-bg__bottom"
+        icon="custom:bottomWaves"
+      />
+    </div>
     <div class="layout__body">
-      <slot></slot>
+      <div class="layout__content">
+        <slot></slot>
+      </div>
       <div class="layout__controls">
         <div class="layout-controls__header">
           <div class="layout-controls__toggle"></div>
@@ -13,7 +25,7 @@
         <slot name="controls"></slot>
       </div>
     </div>
-    <VersionInfoModal />
+    <!-- <VersionInfoModal /> -->
     <SupportModal />
     <SupportBubble/>
     <TicketsListModal />

@@ -1,14 +1,28 @@
 <template>
   <header class="header">
-    <div class="header__welcome">
-      {{ welcomePhrase }}
+    <v-btn
+      @click="router.go(-1)"
+      icon="custom:arrowLeft"
+      variant="text"
+      size="compact"
+      class="header__back"
+    >
+    </v-btn>
+    <div class="header__profile">
+      <span class="header__name">{{ props.username }}</span>
+      <div class="header__position">Администратор</div>
+      <v-icon
+        class="header__photo"
+        icon="custom:userStub"
+      />
     </div>
     <v-btn
       class="header__button"
-      :size="'compact'"
+      icon="custom:logout"
+      size="compact"
+      variant="text"
       @click="logout()"
     >
-      Выйти
     </v-btn>
   </header>
 </template>
@@ -25,7 +39,6 @@
     localStorage.clear()
     return router.push('/login')
   }
-
 
   const welcomePhrase = computed(() => `Здравствуйте, ${props.username}!`)
 </script>

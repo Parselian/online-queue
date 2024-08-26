@@ -5,6 +5,9 @@ import logo from '../icons/logo.vue'
 import bottomWaves from '../icons/bottomWaves.vue'
 import mockupLock from '../icons/mockupLock.vue'
 import arrowLeft from '../icons/arrowLeft.vue'
+import logout from '../icons/logout.vue'
+import userStub from '../icons/userStub.vue'
+import ticketCircle from '../icons/ticketCircle.vue'
 
 const customSvgNameToComponent: any = {
   topWaves,
@@ -12,6 +15,9 @@ const customSvgNameToComponent: any = {
   logo,
   mockupLock,
   arrowLeft,
+  logout,
+  userStub,
+  ticketCircle,
 };
 
 const customSVGs: IconSet = {
