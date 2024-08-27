@@ -1,11 +1,32 @@
 .session {
+  &__icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 220px;
+    height: fit-content;
+    max-width: 95vw;
+    transform: translate(-50%, -50%);
+  }
   &__title {
-    margin-top: 60px;
-    margin-bottom: 15vh;
+    position: relative;
+    margin: 100px 0;
+    text-align: center;
+    width: 290px;
+    margin-left: auto;
+    color: #fff;
+    margin-right: auto;
     font-weight: 600;
     line-height: 1.2;
+    font-size: 24px;
+  }
+  &__subtitle {
+    margin: 40px 0;
+    font-size: 14px;
     text-align: center;
-    font-size: 2rem;
+  }
+  &__create {
+    margin-top: 40px;
   }
 }
 

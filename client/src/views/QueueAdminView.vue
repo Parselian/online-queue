@@ -4,61 +4,104 @@
       v-if="!store.isCurrentClientExists"
       class="queue__title"
     >
-      Очередь пуста
+      <v-icon
+        icon="custom:ticketCircle"
+        class="queue__icon queue__icon--empty"
+      />
+      👀
+      <br />
+      Похоже очередь пуста...
     </h1>
 
-    <CurrentClient
+    <div class="ticket-summary">
+      <v-icon
+        icon="custom:ticketCircle"
+        class="ticket-summary__icon"
+      />
+      <div class="ticket-summary__label">Текущий талон:</div>
+      <div class="ticket-summary__id">{{ store.currentClientInfo.ticketAbbreviation }}</div>
+      <div class="ticket-summary__estimate">
+        Осталось студентов: <br/> <b>{{ store.queueAmount }}</b>
+      </div>
+    </div>
+
+    <ul class="ticket-info">
+      <li class="ticket-info__item ticket-info-item">
+        <span class="ticket-info-item__col">Имя:</span>
+        <span class="ticket-info-item__col">{{ store.currentClientInfo.studentName }}</span>
+      </li>
+      <li class="ticket-info__item ticket-info-item">
+        <span class="ticket-info-item__col">Группа:</span>
+        <span class="ticket-info-item__col">{{ store.currentClientInfo.studentGroup }}</span>
+      </li>
+      <li class="ticket-info__item ticket-info-item">
+        <span class="ticket-info-item__col">Вопрос:</span>
+        <span class="ticket-info-item__col">{{ store.currentClientInfo.ticketRequest }}</span>
+      </li>
+    </ul>
+
+    <!-- <CurrentClient
       v-else
       :ticketId="store.currentClientInfo.ticketAbbreviation"
       :clientName="store.currentClientInfo.studentName"
       :clientGroup="store.currentClientInfo.studentGroup"
       :ticketRequest="store.currentClientInfo.ticketRequest"
-    />
-
-    <template #controls>
-      <template v-if="store.isCurrentClientExists">
-        <div class="queue-controls__estimate">
-          <b>Осталось студентов:</b> {{ store.queueAmount }}
+    /> -->
+    <template #customControls>
+      <div class="queue__controls">
+        <div class="queue-controls__row">
+          <template v-if="store.isCurrentClientExists">
+            <!-- <div class="queue-controls__estimate">
+              <b>Осталось студентов:</b> {{ store.queueAmount }}
+            </div> -->
+            <v-btn
+              @click="updateQueue"
+              flat
+              size="large"
+              class="queue__button queue__button--next"
+            >
+              Следующий
+            </v-btn>
+          </template>
+          <v-btn
+            @click="updateQueue(false)"
+            color="white"
+            variant="outlined"
+            class="queue__button"
+            icon="refresh"
+          >
+          </v-btn>
+          <v-btn
+            v-if="store.isCurrentClientExists"
+            @click="openTicketsList"
+            class="queue__button queue__button--list"
+            variant="outlined"
+            icon="formatlistbullet"
+          >
+          </v-btn>
         </div>
-        <v-btn
-          @click="updateQueue"
-          color="green"
-          class="queue__button"
-        >
-          Следующий по очереди
-        </v-btn>
-      </template>
-      <v-btn
-        @click="updateQueue(false)"
-        color="light-blue"
-        variant="outlined"
-        class="queue__button"
-      >
-        Обновить
-      </v-btn>
-      <v-btn
-        v-if="store.isCurrentClientExists"
-        @click="openTicketsList"
-        color="grey"
-        class="queue__button"
-      >
-        Список тикетов
-      </v-btn>
-      <v-btn
-        @click="router.push('/admin/session')"
-        variant="outlined"
-        color="light-blue"
-        class="queue__button"
-      >
-        к выбору сессии
-      </v-btn>
-      <v-btn
-        @click="clearQueue"
-        color="pink"
-        class="queue__button"
-      >
-        Очистить очередь
-      </v-btn>
+        <div class="queue-controls__row">
+          <v-btn
+            @click="router.push('/admin/session')"
+            variant="outlined"
+            block
+            flat
+            color="white"
+            class="queue__button"
+          >
+            к выбору сессии
+          </v-btn>
+          <v-btn
+            @click="clearQueue"
+            color="pink"
+            block
+            flat
+            class="queue__button"
+          >
+            Очистить очередь
+          </v-btn>
+        </div>
+      </div>
     </template>
   </DefaultLayout>
 </template>

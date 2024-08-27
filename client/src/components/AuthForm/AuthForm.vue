@@ -92,7 +92,7 @@
         flat
         class="auth-form__submit"
       >
-        {{ submitText }}
+        {{ props.submitText }}
       </v-btn>
       <div
       v-if="store.isActiveLoginRoute"
@@ -128,6 +128,10 @@
   } from '@/constants/regexRules'
   import router from '@/router'
 
+  const props = defineProps({
+    submitText: String
+  })
+
   const rules = ref({
     required: (v: string) => !!v.trim() || 'Только буквы рус./лат. алфавита',
     login: (v: string) => loginValidation.test(v) || '6-20 символов/цифр',
@@ -139,7 +143,6 @@
   const store = useAuthStore()
   const form = ref()
 
-  const submitText = computed(() => store.isActiveLoginRoute ? 'Войти' : 'Зарегистрироваться')
 
   const validate = async () => {
     const {valid} = await form.value.validate()

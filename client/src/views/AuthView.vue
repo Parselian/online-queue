@@ -4,7 +4,7 @@
     <template #subtitle>{{ subtitle }}</template>
     <template #default>
       <ForgotPassword v-if="route.name === 'resetPassword'" />
-      <AuthForm v-else/>
+      <AuthForm :submitText="submitText" v-else/>
     </template>
   </AuthLayout>
 </template>
@@ -20,8 +20,8 @@
   const route = useRoute()
   const store = useAuthStore()
 
-
   const title = computed(() => store.isActiveLoginRoute ? 'С возвращением!' : store.isActiveResetPasswordRoute ? 'Забыли пароль?' : 'Регистрация')
   const subtitle = computed(() => store.isActiveLoginRoute ? 'Для продолжения необходимо авторизоваться' : store.isActiveResetPasswordRoute ? 'Просто придумай новый :)' : 'Ты не пожалеешь! ;)')
+  const submitText = computed(() => store.isActiveLoginRoute ? 'Войти' : 'Зарегистрироваться')
 
 </script>

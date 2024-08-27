@@ -22,7 +22,7 @@ export const login = async (formInstance: any) => {
     formInstance.value.reset()
   } catch (e: any) {
     console.log(e.response);
-    
+
     if (e.response.status === 453) alert('Неправильный логин или пароль!')
     console.error(e)
   }
@@ -34,8 +34,8 @@ export const register = async (formInstance: any) => {
 
     if (response.status >= 200 && response.status < 300) {
       alert('Вы успешно зарегистрировались!')
-      router.push('/login')
       formInstance.value.reset()
+      await router.push('/login')
     }
   } catch (e: any) {
     if (e.response.status === 452) alert('Пользователь с таким логином уже существует!')
@@ -52,7 +52,7 @@ export const updatePassword = async (formInstance: any) => {
     if (response.status >= 200 && response.status < 300) {
       alert('Пароль успешно изменён!')
       formInstance.value.reset()
-      router.push('/login')
+      await router.push('/login')
     }
   } catch (e: any) {
     alert('Что-то пошло не так. Проверьте правильность написания логина')

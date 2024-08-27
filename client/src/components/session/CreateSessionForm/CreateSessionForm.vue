@@ -42,3 +42,7 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+  @import "@/components/session/CreateSessionForm/styles/create-session-form";
+</style>

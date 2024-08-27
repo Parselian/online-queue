@@ -18,12 +18,17 @@
       <div class="layout__content">
         <slot></slot>
       </div>
-      <div class="layout__controls">
-        <div class="layout-controls__header">
-          <div class="layout-controls__toggle"></div>
+      <slot name="customControls">
+        <div class="layout__controls">
+          <h2 class="layout__title">
+            <slot name="title">Настройки</slot>
+          </h2>
+          <div class="layout-controls__header">
+            <div class="layout-controls__toggle"></div>
+          </div>
+          <slot name="controls"></slot>
         </div>
-        <slot name="controls"></slot>
-      </div>
+      </slot>
     </div>
     <!-- <VersionInfoModal /> -->
     <SupportModal />
