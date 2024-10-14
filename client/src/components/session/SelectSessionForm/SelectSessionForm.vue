@@ -27,32 +27,32 @@
       label="Желаемая сессия"
       class="select-session-form__select"
     />
-    <div class="select-session-form__controls">
-      <v-btn
-        @click="submitSessionsForm(selectSession)"
-        color="light-blue"
-        size="large"
-        class="select-session-form__button"
-      >
-        Выбрать
-      </v-btn>
-      <v-btn
-        @click="getSessionsList"
-        variant="outlined"
-        color="light-blue"
-        class="select-session-form__button"
-        icon="refresh"
-      >
-      </v-btn>
-      <v-btn
-        v-if="authStore.isUserAdmin"
-        @click="submitSessionsForm(deleteSession)"
-        color="pink"
-        class="select-session-form__button"
-        icon="delete"
-      >
-      </v-btn>
-    </div>
+    <v-btn
+      @click="submitSessionsForm(selectSession)"
+      block
+      color="light-blue"
+      class="select-session-form__button"
+    >
+      Выбрать сессию
+    </v-btn>
+    <v-btn
+      @click="getSessionsList"
+      block
+      variant="outlined"
+      color="light-blue"
+      class="select-session-form__button"
+    >
+      Обновить список
+    </v-btn>
+    <v-btn
+      v-if="authStore.isUserAdmin"
+      @click="submitSessionsForm(deleteSession)"
+      block
+      color="pink"
+      class="select-session-form__button"
+    >
+      Удалить сессию
+    </v-btn>
   </v-form>
 </template>
 

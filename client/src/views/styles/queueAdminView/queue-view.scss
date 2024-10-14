@@ -1,105 +1,28 @@
 .queue {
-  position: relative;
-  &__icon {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 300px;
-    height: fit-content;
-    max-width: 95vw;
-    transform: translate(-50%, -50%);
-  }
   &__title {
-    position: relative;
-    margin: 100px 0;
+    margin-top: 40px;
     text-align: center;
-    width: 290px;
-    margin-left: auto;
-    color: #fff;
-    margin-right: auto;
+    margin-bottom: 80px;
     font-weight: 600;
     line-height: 1.2;
-    font-size: 28px;
+    font-size: 2rem;
   }
   &__button {
-    &--next {
-      color: #17A0FF;
-      flex-grow: 1;
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    &:not(:last-child) {
+      margin-bottom: 20px;
     }
-    &--list {
-      color: white;
-    }
-  }
-
-  &__controls {
-    padding: 0 20px;
   }
 }
 
 .queue-controls {
-  &__row {
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-    gap: 10px 5px;
-    display: flex;
-    align-items: center;
-  }
-}
-
-.ticket-summary {
-  margin-bottom: 80px;
-  margin-top: 8vh;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  width: 230px;
+  padding-top: 100px;
   text-align: center;
-  color: #fff;
-  &__icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: inherit;
-    transform: translate(-50%, -50%);
-  }
-  &__label {
-    font-size: 16px;
-    font-weight: 300;
-  }
-  &__id {
-    margin-bottom: 5px;
-    font-size: 48px;
-    font-weight: 700;
-  }
   &__estimate {
-    font-size: 16px;
-    font-weight: 300;
-  }
-}
-
-.ticket-info {
-  margin-bottom: 40px;
-  padding: 0 20px;
-  color: #fff;
-  font-size: 14px;
-  &__item {
-    &:not(:last-child) {
-      margin-bottom: 8px;
-    }
-  }
-}
-
-.ticket-info-item {
-  display: grid;
-  column-gap: 12px;
-  grid-template-columns: 60px 1fr;
-  &__col {
-    &:first-child {
-      font-weight: 600;
-    }
-    &:last-child {
-      font-weight: 300;
-    }
+    text-align: center;
+    margin-bottom: 10px;
   }
 }

@@ -1,15 +1,7 @@
 .select-session-form {
-  &__controls {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
   &__button {
-    &:first-child {
-      flex-grow: 1;
-    }
     &:not(:last-child) {
-      margin-right: 5px;
+      margin-bottom: 10px;
     }
   }
 }

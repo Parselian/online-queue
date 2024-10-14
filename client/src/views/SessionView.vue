@@ -1,18 +1,12 @@
 <template>
   <DefaultLayout>
-    <h1 class="session__title">
-      <v-icon
-        icon="custom:ticketCircle"
-        class="session__icon"
-      />
-      Выберите <br/> сессию
-    </h1>
-    <template #controls>
+    <h1 class="session__title">Выберите сессию</h1>
+    <div class="session-controls">
       <SelectSessionForm />
-      <CreateSessionForm
-        class="session__create"
-        v-if="authStore.isUserAdmin"
-      />
+    </div>
+
+    <template #controls>
+      <CreateSessionForm v-if="authStore.isUserAdmin"/>
     </template>
   </DefaultLayout>
 </template>

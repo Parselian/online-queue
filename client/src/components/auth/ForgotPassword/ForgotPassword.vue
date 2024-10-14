@@ -3,8 +3,7 @@
     @submit.prevent="validate"
     ref="form"
   >
-  <div class="auth-form__fields">
-
+    <h2 class="auth-form__title">Забыли пароль?</h2>
     <v-text-field
       v-model="store.resetPasswordFormData.login"
       :rules="[rules.login]"
@@ -12,7 +11,6 @@
       type="text"
       clearable
       label="Логин"
-      variant="underlined"
     />
     <v-text-field
       v-model="store.resetPasswordFormData.password"
@@ -21,7 +19,6 @@
       clearable
       type="password"
       label="Новый пароль"
-      variant="underlined"
     />
     <v-text-field
       v-model="store.resetPasswordFormData.confirmPassword"
@@ -29,32 +26,25 @@
       density="compact"
       clearable
       type="password"
-      variant="underlined"
       label="Подтверждение пароля"
-      />
-  </div>
+    />
 
+    <v-btn
+      type="submit"
+      block
+      class="mt-2"
+      :color="'black'"
+    >
+      Обновить пароль
+    </v-btn>
 
-    <div class="auth-form__controls">
-      <v-btn
-        type="submit"
-        block
-        color="#17A0FF"
-        flat
-        class="auth-form__control"
-      >
-        Обновить пароль
-      </v-btn>
-      <v-btn
-        block
-        flat
-        variant="outlined"
-        color="#17A0FF"
-        @click="router.push('/login')"
-        class="auth-form__control"
+    <div class="auth-form-footer">
+      <RouterLink
+        :to="'/login'"
+        class="auth-form-footer__link"
       >
         Войти
-      </v-btn>
+      </RouterLink>
     </div>
   </v-form>
 </template>
@@ -64,7 +54,6 @@
   import { useAuthStore } from '@/stores/useAuthStore'
   import { updatePassword } from '@/components/AuthForm/features/auth'
   import { loginValidation, passwordValidation} from '@/constants/regexRules'
-  import router from '@/router'
 
   const store = useAuthStore()
 
